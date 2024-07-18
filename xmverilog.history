@@ -1,0 +1,8 @@
+s1(27Jun2024:05:15:37):  ncverilog +access+r test32.v mips32.v 
+s2(27Jun2024:05:15:51):  ncverilog +access+r sum32.v mips32.v 
+s3(27Jun2024:05:15:59):  ncverilog +access+r fib32.v mips32.v 
+s4(04Jul2024:04:51:11):  ncverilog +access+r test32.v mips32.v 
+s5(04Jul2024:05:00:49):  ncverilog +access+r test32.v mips32.v 
+s6(04Jul2024:05:11:27):  ncverilog +define+__POST_PR__ +access+r -v /home/cad/lib/NANGATE45/cells.v sum32.v mips32.final.vnet 
+s7(16Jul2024:04:42:13):  ncverilog +access+r test32.v mips32.v 
+s8(18Jul2024:09:37:08):  ncverilog +access+r test32.v mips32.v 
