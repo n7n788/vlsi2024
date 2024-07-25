@@ -1,6 +1,12 @@
-1720068967 /home/vlsi0217/files_14/mips32.final.vnet
+1721652545 /home/vlsi0217/files_14/top.v
 1685064111 /home/cad/lib/NangateOpenCellLibrary_PDKv1_3_v2010_12/Front_End/Verilog/NangateOpenCellLibrary.v
-1719358151 /home/vlsi0217/files_14/test32.v
-1719358151 /home/vlsi0217/files_14/mips32.v
+1720068967 /home/vlsi0217/files_14/mips32.final.vnet
+1721654376 /home/vlsi0217/files_14/test32.v
+1721619882 /home/vlsi0217/files_14/busarb.v
+1721653651 /home/vlsi0217/files_14/mips32.v
 1719358151 /home/vlsi0217/files_14/fib32.v
+1721623999 /home/vlsi0217/files_14/addrdec.v
+1721626190 /home/vlsi0217/files_14/devices.v
+1721624769 /home/vlsi0217/files_14/sram.v
 1719358151 /home/vlsi0217/files_14/sum32.v
+1721624096 /home/vlsi0217/files_14/timer.v

@@ -9,37 +9,41 @@
 
 /* simplified MIPS processor */
 // Modified by Matsutani
-//module mips #(parameter WIDTH = 8, REGBITS = 3) (
-module mips32 #(parameter WIDTH = 32, REGBITS = 3) (
-	input			clk, reset,
-	input [WIDTH-1:0] 	memdata,
+//module mips #(parameter WIDTH = 8, `REGBITS = 3) (
+`include "define.h"
+module mips32 (
+	input			clk, reset_,
+	input [`DATA_WIDTH-1:0] 	memdata,
 	output			memread, memwrite,
-	output [WIDTH-1:0] 	adr, writedata
+	output [`BUS_ADDR_WIDTH-1:0] adr,
+	output [`DATA_WIDTH-1:0] writedata,
+	output breq_
 );
 wire [31:0]	instr;
 wire		zero, alusrca, memtoreg, iord, pcen, regwrite, regdst;
 wire [1:0]	aluop, pcsource, alusrcb;
 wire [3:0]	irwrite;
 wire [2:0]	alucont;
-controller cont(clk, reset, instr[31:26], zero, memread, memwrite,
+controller cont(clk, reset_, instr[31:26], zero, memread, memwrite,
 			alusrca, memtoreg, iord, pcen, regwrite, regdst,
-			pcsource, alusrcb, aluop, irwrite);
+			pcsource, alusrcb, aluop, irwrite, breq_);
 alucontrol ac(aluop, instr[5:0], alucont);
-datapath #(WIDTH, REGBITS) dp(clk, reset, memdata, alusrca, memtoreg,
+datapath dp(clk, reset_, memdata, alusrca, memtoreg,
 			iord, pcen, regwrite, regdst, pcsource, alusrcb,
 			irwrite, alucont, zero, instr, adr, writedata);
 endmodule
 
 /* controller */
 module controller (
-	input			clk, reset,
+	input			clk, reset_,
 	input [5:0]		op,
 	input			zero,
 	output reg		memread, memwrite, alusrca, memtoreg, iord,
 	output			pcen,
 	output reg		regwrite, regdst,
 	output reg [1:0]	pcsource, alusrcb, aluop,
-	output reg [3:0]	irwrite
+	output reg [3:0]	irwrite,
+	output breq_
 );
 parameter FETCH1  = 4'b0001;
 parameter FETCH2  = 4'b0010;
@@ -58,6 +62,7 @@ parameter ADDIEX  = 4'b1110;
 parameter ADDIWR  = 4'b1111;
 parameter LB      = 6'b100000;
 parameter SB      = 6'b101000;
+// op(命令の上位6bit)の値
 // Added by Matsutani
 parameter LW      = 6'b100011;
 parameter SW      = 6'b101011;
@@ -68,9 +73,10 @@ parameter ADDI    = 6'b001000;
 parameter J       = 6'b000010;
 reg [3:0]	state, nextstate;
 reg		pcwrite, pcwritecond;
+assign breq_ = (memread | memwrite) ? `Enable_ : `Disable_;
 // state register
 always @(posedge clk)
-	if (reset) state <= FETCH1;
+	if (reset_ == `Enable_) state <= FETCH1;
 	else state <= nextstate;
 // next state logic
 always @(*) begin
@@ -220,18 +226,20 @@ always @(*)
 endmodule
 
 /* datapath */
-module datapath #(parameter WIDTH = 8, REGBITS = 3) (
-	input			clk, reset,
-	input [WIDTH-1:0]	memdata,
+module datapath (
+	input			clk, reset_,
+	input [`DATA_WIDTH-1:0]	memdata,
 	input			alusrca, memtoreg, iord, pcen, regwrite, regdst,
 	input [1:0]		pcsource, alusrcb,
 	input [3:0]		irwrite,
 	input [2:0]		alucont,
 	output			zero,
 	output [31:0]		instr,
-	output [WIDTH-1:0]	adr, writedata
+	output [`BUS_ADDR_WIDTH-1:0]	adr,
+	output [`DATA_WIDTH-1:0]	 writedata
+	
 );
-// the size of the parameters must be changed to match the WIDTH parameter
+// the size of the parameters must be changed to match the DATA_WIDTH parameter
 // Modified by Matsutani
 //parameter CONST_ZERO = 8'b0;
 //parameter CONST_ONE = 8'b1;
@@ -239,18 +247,18 @@ parameter CONST_ZERO = 32'b0;
 parameter CONST_ONE = 32'b1;
 parameter CONST_FOUR = 32'b100;
 //
-wire [REGBITS-1:0] ra1, ra2, wa;
-wire [WIDTH-1:0] pc, nextpc, md, rd1, rd2, wd, a, src1, src2, aluresult,
+wire [`REGBITS-1:0] ra1, ra2, wa;
+wire [`DATA_WIDTH-1:0] pc, nextpc, md, rd1, rd2, wd, a, src1, src2, aluresult,
 			aluout, constx4;
 // shift left constant field by 2
 // Modified by Matsutani
-//assign constx4 = {instr[WIDTH-3:0], 2'b00};
+//assign constx4 = {instr[DATA_WIDTH-3:0], 2'b00};
 assign constx4 = {instr[16-3:0], 2'b00};
 //
 // register file address fields
-assign ra1 = instr[REGBITS+20:21];
-assign ra2 = instr[REGBITS+15:16];
-mux2 #(REGBITS) regmux(instr[REGBITS+15:16], instr[REGBITS+10:11], regdst, wa);
+assign ra1 = instr[`REGBITS+20:21];
+assign ra2 = instr[`REGBITS+15:16];
+mux2 #(`REGBITS) regmux(instr[`REGBITS+15:16], instr[`REGBITS+10:11], regdst, wa);
 // independent of bit width, 
 // load instruction into four 8-bit registers over four cycles
 // Modified by Matsutani
@@ -261,24 +269,24 @@ mux2 #(REGBITS) regmux(instr[REGBITS+15:16], instr[REGBITS+10:11], regdst, wa);
 flopen #(32) ir(clk, irwrite[3], memdata[31:0], instr[31:0]);
 //
 // datapath
-flopenr #(WIDTH) pcreg(clk, reset, pcen, nextpc, pc);
-flop #(WIDTH) mdr(clk, memdata, md);
-flop #(WIDTH) areg(clk, rd1, a);
-flop #(WIDTH) wrd(clk, rd2, writedata);
-flop #(WIDTH) res(clk, aluresult, aluout);
-mux2 #(WIDTH) adrmux(pc, aluout, iord, adr);
-mux2 #(WIDTH) src1mux(pc, a, alusrca, src1);
+flopenr #(`DATA_WIDTH) pcreg(clk, reset_, pcen, nextpc, pc);
+flop #(`DATA_WIDTH) mdr(clk, memdata, md);
+flop #(`DATA_WIDTH) areg(clk, rd1, a);
+flop #(`DATA_WIDTH) wrd(clk, rd2, writedata);
+flop #(`DATA_WIDTH) res(clk, aluresult, aluout);
+mux2 #(`BUS_ADDR_WIDTH) adrmux(pc[9:0], aluout[9:0], iord, adr);
+mux2 #(`DATA_WIDTH) src1mux(pc, a, alusrca, src1);
 // Modified by Matsutani
 //mux4 #(WIDTH) src2mux(writedata, CONST_ONE, instr[WIDTH-1:0], constx4, 
 //			alusrcb, src2);
-mux4 #(WIDTH) src2mux(writedata, CONST_FOUR, {{16{instr[15]}}, instr[15:0]},
+mux4 #(`DATA_WIDTH) src2mux(writedata, CONST_FOUR, {{16{instr[15]}}, instr[15:0]},
 			{{16{constx4[15]}}, constx4[15:0]}, alusrcb, src2);
 //
-mux4 #(WIDTH) pcmux(aluresult, aluout, constx4, CONST_ZERO, pcsource, nextpc);
-mux2 #(WIDTH) wdmux(aluout, md, memtoreg, wd);
-regfile #(WIDTH,REGBITS) rf(clk, regwrite, ra1, ra2, wa, wd, rd1, rd2);
-alu #(WIDTH) alunit(src1, src2, alucont, aluresult);
-zerodetect #(WIDTH) zd(aluresult, zero);
+mux4 #(`DATA_WIDTH) pcmux(aluresult, aluout, constx4, CONST_ZERO, pcsource, nextpc);
+mux2 #(`DATA_WIDTH) wdmux(aluout, md, memtoreg, wd);
+regfile #(`DATA_WIDTH,`REGBITS) rf(clk, regwrite, ra1, ra2, wa, wd, rd1, rd2);
+alu #(`DATA_WIDTH) alunit(src1, src2, alucont, aluresult);
+zerodetect #(`DATA_WIDTH) zd(aluresult, zero);
 endmodule
 
 /* alu */
@@ -302,7 +310,7 @@ always @(*)
 endmodule
 
 /* regfile */
-module regfile #(parameter WIDTH = 8, REGBITS = 3) (
+module regfile  #(parameter WIDTH = 8, REGBITS = 3) (
 	input			clk,
 	input			regwrite,
 	input [REGBITS-1:0]	ra1, ra2, wa,
@@ -350,12 +358,12 @@ endmodule
 
 /* flopenr */
 module flopenr #(parameter WIDTH = 8) (
-	input			clk, reset, en,
+	input			clk, reset_, en,
 	input [WIDTH-1:0]	d,
 	output reg [WIDTH-1:0]	q
 );
 always @(posedge clk)
-	if (reset) q <= 0;
+	if (reset_ == `Enable_) q <= 0;
 	else if (en) q <= d;
 endmodule
 

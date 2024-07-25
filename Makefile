@@ -4,7 +4,7 @@ SCRIPT = nangate45
 #SCRIPT = tsmc16
 
 ex1:
-	ncverilog +access+r test32.v mips32.v
+	ncverilog +access+r test32.v top.v mips32.v devices.v busarb.v addrdec.v sram.v timer.v
 ex2:
 	ncverilog +access+r sum32.v mips32.v
 ex3:

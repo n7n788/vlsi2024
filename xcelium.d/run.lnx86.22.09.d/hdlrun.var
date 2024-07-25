@@ -88,4 +88,4 @@ define VIEW_MAP ( $VIEW_MAP \
 , .SVMS => SVMS \
 )
 define ELAB_SNAPSHOT
-define SNAPSHOT worklib.top:v
+define SNAPSHOT worklib.test32:v
