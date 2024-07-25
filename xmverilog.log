@@ -1,5 +1,5 @@
 xmverilog: 22.09-s007: (c) Copyright 1995-2023 Cadence Design Systems, Inc.
-TOOL:	xmverilog	22.09-s007: Started on Jul 25, 2024 at 03:12:43 UTC
+TOOL:	xmverilog	22.09-s007: Started on Jul 25, 2024 at 07:52:08 UTC
 ncverilog
 	+access+r
 	test32.v
@@ -11,11 +11,39 @@ ncverilog
 	sram.v
 	timer.v
 xmverilog: *W,NCEXDEP: Executable (ncverilog) is deprecated. Use (xmverilog) instead.
+Recompiling... reason: file './mips32.v' is newer than expected.
+	expected: Thu Jul 25 07:50:55 2024
+	actual:   Thu Jul 25 07:52:06 2024
+file: mips32.v
+	module worklib.datapath:v
+		errors: 0, warnings: 0
+		Caching library 'worklib' ....... Done
+	Elaborating the design hierarchy:
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		worklib.datapath:v <0x2b39d94b>
+			streams:   6, words:  1150
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		                  Instances  Unique
+		Modules:                 47      19
+		Registers:               63      29
+		Scalar wires:            39       -
+		Expanded wires:           8       2
+		Vectored wires:          83       -
+		Always blocks:           37      16
+		Initial blocks:           1       1
+		Cont. assignments:       37      30
+		Pseudo assignments:      14       9
+		Simulation timescale:  10ps
+	Writing initial simulation snapshot: worklib.test32:v
 Loading snapshot worklib.test32:v .................... Done
 xcelium> source /home/cad/cadence/XCELIUM2209/tools/xcelium/files/xmsimrc
 xcelium> run
-Simulation failed
-Simulation complete via $finish(1) at time 10022 NS + 0
-./test32.v:38 	$finish;
+Data [  20] is stored in Address [         7]
+Simulation completely successful
+Simulation complete via $finish(1) at time 560 NS + 1
+./test32.v:54 		$finish;
 xcelium> exit
-TOOL:	xmverilog	22.09-s007: Exiting on Jul 25, 2024 at 03:12:48 UTC  (total: 00:00:05)
+TOOL:	xmverilog	22.09-s007: Exiting on Jul 25, 2024 at 07:52:13 UTC  (total: 00:00:05)

@@ -14,17 +14,18 @@
 module mips32 (
 	input			clk, reset_,
 	input [`DATA_WIDTH-1:0] 	memdata,
+	input 			bgrt_,
 	output			memread, memwrite,
 	output [`BUS_ADDR_WIDTH-1:0] adr,
 	output [`DATA_WIDTH-1:0] writedata,
-	output breq_
+	output 			breq_
 );
 wire [31:0]	instr;
 wire		zero, alusrca, memtoreg, iord, pcen, regwrite, regdst;
 wire [1:0]	aluop, pcsource, alusrcb;
 wire [3:0]	irwrite;
 wire [2:0]	alucont;
-controller cont(clk, reset_, instr[31:26], zero, memread, memwrite,
+controller cont(clk, reset_, instr[31:26], zero, bgrt_, memread, memwrite,
 			alusrca, memtoreg, iord, pcen, regwrite, regdst,
 			pcsource, alusrcb, aluop, irwrite, breq_);
 alucontrol ac(aluop, instr[5:0], alucont);
@@ -38,12 +39,13 @@ module controller (
 	input			clk, reset_,
 	input [5:0]		op,
 	input			zero,
+	input			bgrt_,
 	output reg		memread, memwrite, alusrca, memtoreg, iord,
 	output			pcen,
 	output reg		regwrite, regdst,
 	output reg [1:0]	pcsource, alusrcb, aluop,
 	output reg [3:0]	irwrite,
-	output breq_
+	output reg		breq_
 );
 parameter FETCH1  = 4'b0001;
 parameter FETCH2  = 4'b0010;
@@ -73,7 +75,7 @@ parameter ADDI    = 6'b001000;
 parameter J       = 6'b000010;
 reg [3:0]	state, nextstate;
 reg		pcwrite, pcwritecond;
-assign breq_ = (memread | memwrite) ? `Enable_ : `Disable_;
+// assign breq_ = (memread | memwrite) ? `Enable_ : `Disable_;
 // state register
 always @(posedge clk)
 	if (reset_ == `Enable_) state <= FETCH1;
@@ -83,7 +85,10 @@ always @(*) begin
 	case (state)
 		// Modified by Matsutani
 		//FETCH1:	nextstate <= FETCH2;
-		FETCH1:	nextstate <= DECODE;
+		FETCH1:	begin
+			if (bgrt_ == `Enable_) nextstate <= DECODE;
+			else nextstate <= FETCH1;
+		end
 		//FETCH2:	nextstate <= FETCH3;
 		//FETCH3:	nextstate <= FETCH4;
 		//FETCH4:	nextstate <= DECODE;
@@ -137,6 +142,7 @@ always @(*) begin
 			irwrite <= 4'b1000;
 			alusrcb <= 2'b01;
 			pcwrite <= 1;
+			breq_ <= `Enable_;
 		end
 		FETCH2: begin
 			memread <= 1;
@@ -249,11 +255,12 @@ parameter CONST_FOUR = 32'b100;
 //
 wire [`REGBITS-1:0] ra1, ra2, wa;
 wire [`DATA_WIDTH-1:0] pc, nextpc, md, rd1, rd2, wd, a, src1, src2, aluresult,
-			aluout, constx4;
+			aluout, constx;
 // shift left constant field by 2
 // Modified by Matsutani
 //assign constx4 = {instr[DATA_WIDTH-3:0], 2'b00};
-assign constx4 = {instr[16-3:0], 2'b00};
+// assign constx4 = {instr[16-3:0], 2'b00};
+assign constx = {instr[15:0]};
 //
 // register file address fields
 assign ra1 = instr[`REGBITS+20:21];
@@ -279,10 +286,10 @@ mux2 #(`DATA_WIDTH) src1mux(pc, a, alusrca, src1);
 // Modified by Matsutani
 //mux4 #(WIDTH) src2mux(writedata, CONST_ONE, instr[WIDTH-1:0], constx4, 
 //			alusrcb, src2);
-mux4 #(`DATA_WIDTH) src2mux(writedata, CONST_FOUR, {{16{instr[15]}}, instr[15:0]},
-			{{16{constx4[15]}}, constx4[15:0]}, alusrcb, src2);
+mux4 #(`DATA_WIDTH) src2mux(writedata, CONST_ONE, {{16{instr[15]}}, instr[15:0]},
+			{{16{constx[15]}}, constx[15:0]}, alusrcb, src2);
 //
-mux4 #(`DATA_WIDTH) pcmux(aluresult, aluout, constx4, CONST_ZERO, pcsource, nextpc);
+mux4 #(`DATA_WIDTH) pcmux(aluresult, aluout, constx, CONST_ZERO, pcsource, nextpc);
 mux2 #(`DATA_WIDTH) wdmux(aluout, md, memtoreg, wd);
 regfile #(`DATA_WIDTH,`REGBITS) rf(clk, regwrite, ra1, ra2, wa, wd, rd1, rd2);
 alu #(`DATA_WIDTH) alunit(src1, src2, alucont, aluresult);

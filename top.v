@@ -7,17 +7,17 @@
 module top (
 	input reset_, input clk);
 
-    // CPU0の入出力
+    // CPU0とdevicesの間の入出力
     wire			memread0, memwrite0, rw0_;
     wire [`BUS_ADDR_WIDTH-1:0] addr0;
-    wire [`DATA_WIDTH-1:0]	idata0, odata0;
+    wire [`DATA_WIDTH-1:0]	idata0, odata0; // devicesへの入力/出力
 	// CPU0とbusarbの間の入出力
     wire breq0_, bgrt0_;
 
-    // CPU1の入出力
+    // CPU1のdevicesの間の入出力
     wire			memread1, memwrite1, rw1_;
     wire [`BUS_ADDR_WIDTH-1:0]	addr1;
-    wire [`DATA_WIDTH-1:0]	idata1, odata1;
+    wire [`DATA_WIDTH-1:0]	idata1, odata1; // devicesへの入力/出力
 	// CPU1とbusarbの間の入出力
     wire breq1_, bgrt1_;
 
@@ -26,8 +26,11 @@ module top (
 	wire [`DATA_WIDTH-1:0] idata, odata;
     wire rw_;
     
-    assign rw0_ = (memread0 | memwrite0) ? `Enable_ : `Disable_;
-    assign rw1_ = (memread1 | memwrite1) ? `Enable_ : `Disable_;
+    assign rw0_ = memread0 ? `Read : 
+                  memwrite0 ? `Write: `Read;
+    assign rw1_ = memread1 ? `Read : 
+                  memwrite1 ? `Write: `Read;
+
 	assign odata0 = odata; assign odata1 = odata;
 
 	// addr0 or addr1 depending on bgrt
@@ -40,6 +43,6 @@ module top (
 	
 	devices devices0 (addr, idata, odata, rw_, reset_, clk);
 	busarb busarb0 (breq0_, breq1_, bgrt0_, bgrt1_, reset_, clk);
-    mips32 dut0(clk, reset_, idata0, memread0, memwrite0, addr0, odata0, breq0_);
-    mips32 dut1(clk, reset_, idata1, memread1, memwrite1, addr1, odata1, breq1_);
+    mips32 dut0(clk, reset_, odata0, bgrt0_, memread0, memwrite0, addr0, idata0, breq0_);
+    mips32 dut1(clk, reset_, odata1, bgrt1_, memread1, memwrite1, addr1, idata1, breq1_);
 endmodule

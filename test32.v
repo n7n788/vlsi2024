@@ -31,7 +31,7 @@ initial begin
 	$dumpfile("dump.vcd");
 	$dumpvars(0, top0);
 	// reset
-	clk <= 0; reset_ <= `Enable_; # 22; reset_ <= `Disable_;
+	clk <= 0; reset_ <= `Enable_; # 15; reset_ <= `Disable_;
 	// stop at 1,000 cycles
 	#(STEP*1000);
 	$display("Simulation failed");

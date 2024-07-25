@@ -5,10 +5,10 @@
 # word 16: 3 - be careful of endianness
 # word 17: 5
 # word 18: 12
-main:   #Assembly Code          effect                  Machine Code
-        lw $2, 68($0)           # initialize $2 = 5     8c020044
-        lw $7, 64($0)           # initialize $7 = 3     8c070040
-        lw $3, 72($0)           # initialize $3 = 12    8c030048
+main:   #Assembly Code          effect                  Machine Code         
+        lw $2, 17($0)           # initialize $2 = 5     8c020044
+        lw $7, 16($0)           # initialize $7 = 3     8c070040
+        lw $3, 18($0)           # initialize $3 = 12    8c030048
         or $4, $7, $2           # $4 <= 3 or 5 = 7      00e22025
         and $5, $3, $4          # $5 <= 12 and 7 = 4    00642824
         add $5, $5, $4          # $5 <= 4 + 7 = 11      00a42820
