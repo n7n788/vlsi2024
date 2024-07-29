@@ -44,5 +44,5 @@ module top (
 	devices devices0 (addr, idata, odata, rw_, reset_, clk);
 	busarb busarb0 (breq0_, breq1_, bgrt0_, bgrt1_, reset_, clk);
     mips32 dut0(clk, reset_, odata0, bgrt0_, memread0, memwrite0, addr0, idata0, breq0_);
-    mips32 dut1(clk, reset_, odata1, bgrt1_, memread1, memwrite1, addr1, idata1, breq1_);
+    // mips32 dut1(clk, reset_, odata1, bgrt1_, memread1, memwrite1, addr1, idata1, breq1_);
 endmodule

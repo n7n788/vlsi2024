@@ -47,23 +47,23 @@ module controller (
 	output reg [3:0]	irwrite,
 	output reg		breq_
 );
-parameter FETCH1  = 4'b0001;
-parameter FETCH2  = 4'b0010;
-parameter FETCH3  = 4'b0011;
-parameter FETCH4  = 4'b0100;
-parameter DECODE  = 4'b0101;
-parameter MEMADR  = 4'b0110;
-parameter LBRD    = 4'b0111;
-parameter LBWR    = 4'b1000;
-parameter SBWR    = 4'b1001;
-parameter RTYPEEX = 4'b1010;
-parameter RTYPEWR = 4'b1011;
-parameter BEQEX   = 4'b1100;
-parameter JEX     = 4'b1101;
-parameter ADDIEX  = 4'b1110;
-parameter ADDIWR  = 4'b1111;
-parameter LB      = 6'b100000;
-parameter SB      = 6'b101000;
+parameter FETCH1      = 4'b0001;
+parameter SAME_FETCH1 = 4'b0010;
+parameter SAME_LBRD   = 4'b0011;
+parameter SAME_SBWR   = 4'b0100;
+parameter DECODE      = 4'b0101;
+parameter MEMADR      = 4'b0110;
+parameter LBRD        = 4'b0111;
+parameter LBWR        = 4'b1000;
+parameter SBWR        = 4'b1001;
+parameter RTYPEEX     = 4'b1010;
+parameter RTYPEWR     = 4'b1011;
+parameter BEQEX       = 4'b1100;
+parameter JEX         = 4'b1101;
+parameter ADDIEX      = 4'b1110;
+parameter ADDIWR      = 4'b1111;
+parameter LB          = 6'b100000;
+parameter SB          = 6'b101000;
 // op(命令の上位6bit)の値
 // Added by Matsutani
 parameter LW      = 6'b100011;
@@ -92,6 +92,10 @@ always @(*) begin
 		//FETCH2:	nextstate <= FETCH3;
 		//FETCH3:	nextstate <= FETCH4;
 		//FETCH4:	nextstate <= DECODE;
+		// SAME_FETCH1: begin
+		// 	if (bgrt_ == `Enable_) nextstate <= DECODE;
+		// 	else nextstate <= SAME_FETCH1;
+		// end
 		DECODE:	case (op)
 			LB:	nextstate <= MEMADR;
 			SB:	nextstate <= MEMADR;
@@ -105,18 +109,25 @@ always @(*) begin
 			J:	nextstate <= JEX;
 			default:nextstate <= FETCH1; // should never happen
 		endcase
-		MEMADR: case (op)
-			LB:	nextstate <= LBRD;
-			SB:	nextstate <= SBWR;
-			// Added by Matsutani
-			LW:	nextstate <= LBRD;
-			SW:	nextstate <= SBWR;
-			//
-			default:nextstate <= FETCH1; // should never happen
-		endcase
-		LBRD:	nextstate <= LBWR;
+		MEMADR: begin
+			case (op)
+				LB:	nextstate <= LBRD;
+				SB:	nextstate <= SBWR;
+				// Added by Matsutani
+				LW:	nextstate <= LBRD;
+				SW:	nextstate <= SBWR;
+				default:nextstate <= FETCH1; // should never happen
+			endcase
+		end
+		LBRD: begin
+			if (bgrt_ == `Enable_) nextstate <= LBWR;
+			else nextstate <= LBRD;
+		end 
 		LBWR:	nextstate <= FETCH1;
-		SBWR:	nextstate <= FETCH1;
+		SBWR: begin
+			if (bgrt_ == `Enable_) nextstate <= FETCH1;
+			else nextstate <= SBWR;
+		end
 		RTYPEEX:nextstate <= RTYPEWR;
 		RTYPEWR:nextstate <= FETCH1;
 		BEQEX:	nextstate <= FETCH1;
@@ -136,6 +147,7 @@ always @(*) begin
 	alusrca <= 0; alusrcb <= 2'b00; aluop <= 2'b00;
 	pcsource <= 2'b00;
 	iord <= 0; memtoreg <= 0;
+	breq_ <= `Disable_;
 	case (state)
 		FETCH1: begin
 			memread <= 1;
@@ -144,25 +156,27 @@ always @(*) begin
 			pcwrite <= 1;
 			breq_ <= `Enable_;
 		end
-		FETCH2: begin
-			memread <= 1;
-			irwrite <= 4'b0100;
-			alusrcb <= 2'b01;
-			pcwrite <= 1;
+		// SAME_FETCH1: begin
+		// 	memread <= 1;
+		// 	irwrite <= 4'b1000;
+		// 	alusrcb <= 2'b01;
+		// 	breq_ <= `Enable_;
+		// end
+		// FETCH3: begin
+		// 	memread <= 1;
+		// 	irwrite <= 4'b0010;
+		// 	alusrcb <= 2'b01;
+		// 	pcwrite <= 1;
+		// end
+		// FETCH4: begin
+		// 	memread <= 1;
+		// 	irwrite <= 4'b0001;
+		// 	alusrcb <= 2'b01;
+		// 	pcwrite <= 1;
+		// end
+		DECODE: begin 
+			alusrcb <= 2'b11;
 		end
-		FETCH3: begin
-			memread <= 1;
-			irwrite <= 4'b0010;
-			alusrcb <= 2'b01;
-			pcwrite <= 1;
-		end
-		FETCH4: begin
-			memread <= 1;
-			irwrite <= 4'b0001;
-			alusrcb <= 2'b01;
-			pcwrite <= 1;
-		end
-		DECODE: alusrcb <= 2'b11;
 		MEMADR: begin
 			alusrca <= 1;
 			alusrcb <= 2'b10;
@@ -170,6 +184,7 @@ always @(*) begin
 		LBRD: begin
 			memread <= 1;
 			iord    <= 1;
+			breq_ <= `Enable_;
 		end
 		LBWR: begin
 			regwrite <= 1;
@@ -178,6 +193,7 @@ always @(*) begin
 		SBWR: begin
 			memwrite <= 1;
 			iord     <= 1;
+			breq_ <= `Enable_;
 		end
 		RTYPEEX: begin
 			alusrca <= 1;
@@ -255,7 +271,7 @@ parameter CONST_FOUR = 32'b100;
 //
 wire [`REGBITS-1:0] ra1, ra2, wa;
 wire [`DATA_WIDTH-1:0] pc, nextpc, md, rd1, rd2, wd, a, src1, src2, aluresult,
-			aluout, constx;
+			aluout, constx, prev_pc;
 // shift left constant field by 2
 // Modified by Matsutani
 //assign constx4 = {instr[DATA_WIDTH-3:0], 2'b00};
