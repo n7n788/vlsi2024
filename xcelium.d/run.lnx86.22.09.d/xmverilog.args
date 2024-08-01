@@ -2,6 +2,9 @@
 // File created by:  xmverilog
 // Do not modify this file
 //
++define+__POST_PR__
 +access+r
+-v
+/home/cad/lib/NANGATE45/cells.v
 test32.v
-mips32.v
+mips32.final.vnet

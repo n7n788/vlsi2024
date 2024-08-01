@@ -30,19 +30,19 @@
                         https://solvnetplus.synopsys.com)
 Initializing...
 Initializing gui preferences from file  /home/vlsi0217/.synopsys_dc_gui/preferences.tcl
-Current time:       Thu Jul  4 05:11:36 2024
+Current time:       Thu Aug  1 07:14:25 2024
 Hostname:           katsuo
 CPU Model:          Intel(R) Xeon(R) E-2186G CPU @ 3.80GHz
-CPU Details:        Cores = 12 : Sockets = 1 : Cache Size = 12288 KB : Freq = 4.30 GHz
+CPU Details:        Cores = 12 : Sockets = 1 : Cache Size = 12288 KB : Freq = 1.67 GHz
 OS:                 Linux 5.4.0-176-generic
-RAM:                125 GB (Free  41 GB)
+RAM:                125 GB (Free   9 GB)
 Swap:                 7 GB (Free   7 GB)
 Work Filesystem:    / mounted to /dev/mapper/ubuntu--vg-ubuntu--lv
 Tmp Filesystem:     / mounted to /dev/mapper/ubuntu--vg-ubuntu--lv
-Work Disk:          491 GB (Free 298 GB)
-Tmp Disk:           491 GB (Free 298 GB)
+Work Disk:          904 GB (Free 455 GB)
+Tmp Disk:           904 GB (Free 455 GB)
 
-CPU Load: 37%, Ram Free: 41 GB, Swap Free: 7 GB, Work Disk Free: 298 GB, Tmp Disk Free: 298 GB
+CPU Load: 1%, Ram Free: 9 GB, Swap Free: 7 GB, Work Disk Free: 455 GB, Tmp Disk Free: 455 GB
 #
 # Your design
 #
@@ -152,14 +152,14 @@ Warning: There are 4928 objects not found during annotation. (PWR-452)
 1
 report_saif -hier
 Information: Updating design information... (UID-85)
-Warning: There are 30 switching activity information conflicts. (PWR-19)
+Warning: There are 45 switching activity information conflicts. (PWR-19)
  
 ****************************************
 Report : saif
         -hierarchy
 Design : mips32
 Version: V-2023.12
-Date   : Thu Jul  4 05:11:39 2024
+Date   : Thu Aug  1 07:14:27 2024
 ****************************************
 
   
@@ -180,8 +180,6 @@ Object type   Annotated (%)     Activity (%)      Activity (%)       Total
 # quit
 Information: Term was not able to be set up using xterm-256color . Using "xterm" by default instead. (CLE-10)
 Warning: Cannot use command line editor for terminal type 'xterm-256color'.  (UI-74)
-dc_shell> Error: unknown command 'power_consumption' (CMD-005)
-dc_shell> Error: unknown command 'report_powert' (CMD-005)
 dc_shell> Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
 Warning: Invalid switching activity annotation on constant net(s) is being ignored. (PWR-421)
  
@@ -190,7 +188,7 @@ Report : power
         -analysis_effort low
 Design : mips32
 Version: V-2023.12
-Date   : Thu Jul  4 05:12:12 2024
+Date   : Thu Aug  1 07:14:33 2024
 ****************************************
 
 
@@ -221,12 +219,12 @@ Attributes
 i - Including register clock pin internal power
 
 
-  Cell Internal Power  = 306.0086 uW   (64%)
-  Net Switching Power  = 175.1820 uW   (36%)
+  Cell Internal Power  = 347.6354 uW   (66%)
+  Net Switching Power  = 180.1398 uW   (34%)
                          ---------
-Total Dynamic Power    = 481.1906 uW  (100%)
+Total Dynamic Power    = 527.7752 uW  (100%)
 
-Cell Leakage Power     =  83.8998 uW
+Cell Leakage Power     =  84.1383 uW
 
 
                  Internal         Switching           Leakage            Total
@@ -235,17 +233,142 @@ Power Group      Power            Power               Power              Power  
 io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
 memory             0.0000            0.0000            0.0000            0.0000  (   0.00%)
 black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
-clock_network    237.2450           83.0775          427.8150          320.7503  (  56.76%)  i
-register          19.1987            8.6664        3.4867e+04           62.7325  (  11.10%)
+clock_network    281.4845           82.8498          427.8150          364.7621  (  59.61%)  i
+register          18.9243            9.3458        3.4540e+04           62.8100  (  10.26%)
 sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
-combinational     49.5654           83.4381        4.8605e+04          181.6082  (  32.14%)
+combinational     47.2260           87.9442        4.9171e+04          184.3408  (  30.13%)
 --------------------------------------------------------------------------------------------------
-Total            306.0091 uW       175.1820 uW     8.3900e+04 nW       565.0910 uW
+Total            347.6348 uW       180.1399 uW     8.4138e+04 nW       611.9128 uW
+1
+dc_shell> Error: unknown command 'make' (CMD-005)
+dc_shell>  
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : mips32
+Version: V-2023.12
+Date   : Thu Aug  1 07:16:13 2024
+****************************************
+
+Timing delays computed with Innovus delay calculator.
+
+ * Some/all delay information is back-annotated.
+
+Operating Conditions: typical   Library: NangateOpenCellLibrary
+Wire Load Model Mode: top
+
+  Startpoint: cont/state_reg[1]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: dp/pcreg/q_reg[1]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  mips32             5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cont/state_reg[1]/CK (DFF_X1)                           0.00       0.00 r
+  cont/state_reg[1]/Q (DFF_X1)                            0.13 *     0.13 r
+  cont/U21/ZN (NOR3_X1)                                   0.02 *     0.15 f
+  cont/FE_OFC1_irwrite_3/Z (CLKBUF_X3)                    0.13 *     0.28 f
+  cont/U16/ZN (NOR4_X1)                                   0.17 *     0.44 r
+  cont/U64/ZN (NAND2_X1)                                  0.04 *     0.48 f
+  cont/alusrcb[0] (controller)                            0.00       0.48 f
+  dp/alusrcb[0] (datapath_WIDTH32_REGBITS3)               0.00       0.48 f
+  dp/src2mux/s[0] (mux4_WIDTH32_1)                        0.00       0.48 f
+  dp/src2mux/U19/ZN (NOR2_X1)                             0.03 *     0.51 r
+  dp/src2mux/FE_OFC51_n7/Z (CLKBUF_X2)                    0.11 *     0.63 r
+  dp/src2mux/FE_RC_1_0/ZN (NAND2_X1)                      0.05 *     0.67 f
+  dp/src2mux/U101/ZN (NAND2_X1)                           0.03 *     0.70 r
+  dp/src2mux/y[0] (mux4_WIDTH32_1)                        0.00       0.70 r
+  dp/alunit/b[0] (alu_WIDTH32)                            0.00       0.70 r
+  dp/alunit/U167/Z (XOR2_X1)                              0.02 *     0.72 f
+  dp/alunit/add_1_root_add_292_2/B[0] (alu_WIDTH32_DW01_add_0)
+                                                          0.00       0.72 f
+  dp/alunit/add_1_root_add_292_2/U1_0/CO (FA_X1)          0.09 *     0.81 f
+  dp/alunit/add_1_root_add_292_2/U1_1/CO (FA_X1)          0.08 *     0.88 f
+  dp/alunit/add_1_root_add_292_2/U1_2/CO (FA_X1)          0.07 *     0.96 f
+  dp/alunit/add_1_root_add_292_2/U1_3/CO (FA_X1)          0.07 *     1.03 f
+  dp/alunit/add_1_root_add_292_2/U1_4/CO (FA_X1)          0.07 *     1.10 f
+  dp/alunit/add_1_root_add_292_2/U1_5/CO (FA_X1)          0.07 *     1.18 f
+  dp/alunit/add_1_root_add_292_2/U1_6/CO (FA_X1)          0.07 *     1.25 f
+  dp/alunit/add_1_root_add_292_2/U1_7/CO (FA_X1)          0.08 *     1.32 f
+  dp/alunit/add_1_root_add_292_2/U1_8/CO (FA_X1)          0.07 *     1.40 f
+  dp/alunit/add_1_root_add_292_2/U1_9/CO (FA_X1)          0.08 *     1.47 f
+  dp/alunit/add_1_root_add_292_2/U1_10/CO (FA_X1)         0.07 *     1.55 f
+  dp/alunit/add_1_root_add_292_2/U1_11/CO (FA_X1)         0.07 *     1.62 f
+  dp/alunit/add_1_root_add_292_2/U1_12/CO (FA_X1)         0.07 *     1.69 f
+  dp/alunit/add_1_root_add_292_2/U1_13/CO (FA_X1)         0.07 *     1.77 f
+  dp/alunit/add_1_root_add_292_2/U1_14/CO (FA_X1)         0.07 *     1.84 f
+  dp/alunit/add_1_root_add_292_2/U1_15/CO (FA_X1)         0.07 *     1.91 f
+  dp/alunit/add_1_root_add_292_2/U1_16/CO (FA_X1)         0.07 *     1.99 f
+  dp/alunit/add_1_root_add_292_2/U1_17/CO (FA_X1)         0.07 *     2.06 f
+  dp/alunit/add_1_root_add_292_2/U1_18/CO (FA_X1)         0.08 *     2.13 f
+  dp/alunit/add_1_root_add_292_2/U1_19/CO (FA_X1)         0.07 *     2.20 f
+  dp/alunit/add_1_root_add_292_2/U1_20/CO (FA_X1)         0.08 *     2.28 f
+  dp/alunit/add_1_root_add_292_2/U1_21/CO (FA_X1)         0.08 *     2.35 f
+  dp/alunit/add_1_root_add_292_2/U1_22/CO (FA_X1)         0.07 *     2.43 f
+  dp/alunit/add_1_root_add_292_2/U1_23/CO (FA_X1)         0.07 *     2.50 f
+  dp/alunit/add_1_root_add_292_2/U1_24/CO (FA_X1)         0.08 *     2.58 f
+  dp/alunit/add_1_root_add_292_2/U1_25/CO (FA_X1)         0.07 *     2.65 f
+  dp/alunit/add_1_root_add_292_2/U1_26/CO (FA_X1)         0.07 *     2.72 f
+  dp/alunit/add_1_root_add_292_2/U1_27/CO (FA_X1)         0.08 *     2.80 f
+  dp/alunit/add_1_root_add_292_2/U1_28/CO (FA_X1)         0.07 *     2.87 f
+  dp/alunit/add_1_root_add_292_2/U1_29/CO (FA_X1)         0.07 *     2.94 f
+  dp/alunit/add_1_root_add_292_2/U1_30/CO (FA_X1)         0.07 *     3.02 f
+  dp/alunit/add_1_root_add_292_2/U1_31/S (FA_X1)          0.09 *     3.11 f
+  dp/alunit/add_1_root_add_292_2/SUM[31] (alu_WIDTH32_DW01_add_0)
+                                                          0.00       3.11 f
+  dp/alunit/U15/ZN (AOI222_X1)                            0.07 *     3.18 r
+  dp/alunit/U14/ZN (INV_X1)                               0.02 *     3.20 f
+  dp/alunit/result[31] (alu_WIDTH32)                      0.00       3.20 f
+  dp/zd/a[31] (zerodetect_WIDTH32)                        0.00       3.20 f
+  dp/zd/U1/ZN (NOR4_X1)                                   0.10 *     3.30 r
+  dp/zd/U11/ZN (NAND4_X1)                                 0.04 *     3.34 f
+  dp/zd/U9/ZN (NOR2_X1)                                   0.04 *     3.38 r
+  dp/zd/y (zerodetect_WIDTH32)                            0.00       3.38 r
+  dp/zero (datapath_WIDTH32_REGBITS3)                     0.00       3.38 r
+  cont/zero (controller)                                  0.00       3.38 r
+  cont/U6/ZN (AOI21_X1)                                   0.02 *     3.40 f
+  cont/U61/ZN (NAND2_X1)                                  0.02 *     3.42 r
+  cont/pcen (controller)                                  0.00       3.42 r
+  dp/pcen (datapath_WIDTH32_REGBITS3)                     0.00       3.42 r
+  dp/pcreg/en (flopenr_WIDTH32)                           0.00       3.42 r
+  dp/pcreg/U28/ZN (INV_X1)                                0.01 *     3.43 f
+  dp/pcreg/U27/ZN (NOR2_X1)                               0.02 *     3.45 r
+  dp/pcreg/FE_OFC5_n35/Z (CLKBUF_X2)                      0.12 *     3.57 r
+  dp/pcreg/U29/ZN (NOR2_X1)                               0.01 *     3.58 f
+  dp/pcreg/FE_OFC37_n36/Z (CLKBUF_X2)                     0.12 *     3.70 f
+  dp/pcreg/U14/ZN (AOI22_X1)                              0.10 *     3.80 r
+  dp/pcreg/U13/ZN (INV_X1)                                0.01 *     3.81 f
+  dp/pcreg/q_reg[1]/D (DFF_X1)                            0.00 *     3.81 f
+  data arrival time                                                  3.81
+
+  clock clk (rise edge)                                  10.00      10.00
+  clock network delay (ideal)                             0.00      10.00
+  clock uncertainty                                      -0.02       9.98
+  dp/pcreg/q_reg[1]/CK (DFF_X1)                           0.00       9.98 r
+  library setup time                                     -0.03 *     9.95
+  data required time                                                 9.95
+  --------------------------------------------------------------------------
+  data required time                                                 9.95
+  data arrival time                                                 -3.81
+  --------------------------------------------------------------------------
+  slack (MET)                                                        6.14
+
+
 1
 dc_shell> 
 Memory usage for this session 148 Mbytes.
 Memory usage for this session including child processes 148 Mbytes.
-CPU usage for this session 3 seconds ( 0.00 hours ).
-Elapsed time for this session 423 seconds ( 0.12 hours ).
+CPU usage for this session 4 seconds ( 0.00 hours ).
+Elapsed time for this session 244 seconds ( 0.07 hours ).
 
 Thank you...

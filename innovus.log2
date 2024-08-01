@@ -1,0 +1,28 @@
+
+Cadence Innovus(TM) Implementation System.
+Copyright 2021 Cadence Design Systems, Inc. All rights reserved worldwide.
+
+Version:	v21.18-s099_1, built Tue Jul 18 13:03:50 PDT 2023
+Options:	
+Date:		Thu Aug  1 07:18:47 2024
+Host:		katsuo (x86_64 w/Linux 5.4.0-176-generic) (6cores*12cpus*Intel(R) Xeon(R) E-2186G CPU @ 3.80GHz 12288KB)
+OS:		Ubuntu 20.04.6 LTS
+
+License:
+		[07:18:47.195547] Configured Lic search path (21.01-s002): 5280@vdec-cad1:5280@vdec-cad2:5280@vdec-cad3
+
+		invs	Innovus Implementation System	21.1	checkout succeeded
+		8 CPU jobs allowed with the current license(s). Use setMultiCpuUsage to set your required CPU count.
+**WARN: (IMPSYT-1507):	The display is invalid and will start in no window mode
+**WARN: (IMPOPT-801):	Genus executable not found in PATH. Install Genus, add the path to the genus executable in the PATH variable and rerun Innovus.
+Change the soft stacksize limit to 0.2%RAM (257 mbytes). Set global soft_stack_size_limit to change the value.
+
+**INFO:  MMMC transition support version v31-84 
+
+<CMD> set_global _enable_mmmc_by_default_flow      $CTE::mmmc_default
+<CMD> suppressMessage ENCEXT-2799
+
+*** Memory Usage v#1 (Current mem = 950.184M, initial mem = 495.066M) ***
+*** Message Summary: 1 warning(s), 0 error(s)
+
+--- Ending "Innovus" (totcpu=0:00:12.1, real=0:00:15.0, mem=950.2M) ---

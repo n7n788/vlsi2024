@@ -30,19 +30,19 @@
                         https://solvnetplus.synopsys.com)
 Initializing...
 Initializing gui preferences from file  /home/vlsi0217/.synopsys_dc_gui/preferences.tcl
-Current time:       Thu Jul  4 05:07:41 2024
+Current time:       Thu Aug  1 07:01:52 2024
 Hostname:           katsuo
 CPU Model:          Intel(R) Xeon(R) E-2186G CPU @ 3.80GHz
-CPU Details:        Cores = 12 : Sockets = 1 : Cache Size = 12288 KB : Freq = 4.30 GHz
+CPU Details:        Cores = 12 : Sockets = 1 : Cache Size = 12288 KB : Freq = 4.59 GHz
 OS:                 Linux 5.4.0-176-generic
-RAM:                125 GB (Free  41 GB)
+RAM:                125 GB (Free   9 GB)
 Swap:                 7 GB (Free   7 GB)
 Work Filesystem:    / mounted to /dev/mapper/ubuntu--vg-ubuntu--lv
 Tmp Filesystem:     / mounted to /dev/mapper/ubuntu--vg-ubuntu--lv
-Work Disk:          491 GB (Free 298 GB)
-Tmp Disk:           491 GB (Free 298 GB)
+Work Disk:          904 GB (Free 455 GB)
+Tmp Disk:           904 GB (Free 455 GB)
 
-CPU Load: 33%, Ram Free: 41 GB, Swap Free: 7 GB, Work Disk Free: 298 GB, Tmp Disk Free: 298 GB
+CPU Load: 2%, Ram Free: 9 GB, Swap Free: 7 GB, Work Disk Free: 455 GB, Tmp Disk Free: 455 GB
 #
 # Your design
 #
@@ -141,7 +141,6 @@ Information: Pin delimiter = :. (SPEF-3)
 # quit
 Information: Term was not able to be set up using xterm-256color . Using "xterm" by default instead. (CLE-10)
 Warning: Cannot use command line editor for terminal type 'xterm-256color'.  (UI-74)
-dc_shell> Error: unknown command 'report_timingh' (CMD-005)
 dc_shell> Information: Updating design information... (UID-85)
  
 ****************************************
@@ -151,7 +150,7 @@ Report : timing
         -max_paths 1
 Design : mips32
 Version: V-2023.12
-Date   : Thu Jul  4 05:07:58 2024
+Date   : Thu Aug  1 07:02:03 2024
 ****************************************
 
 Timing delays computed with Innovus delay calculator.
@@ -267,10 +266,39 @@ Wire Load Model Mode: top
 
 
 1
-dc_shell> dc_shell> 
+dc_shell>  
+****************************************
+Report : reference
+Design : mips32
+Version: V-2023.12
+Date   : Thu Aug  1 07:02:18 2024
+****************************************
+
+Attributes:
+    b - black box (unknown)
+   bo - allows boundary optimization
+    d - dont_touch
+   mo - map_only
+    h - hierarchical
+    n - noncombinational
+    r - removable
+    s - synthetic operator
+    u - contains unmapped logic
+
+Reference          Library       Unit Area   Count    Total Area   Attributes
+-----------------------------------------------------------------------------
+CLKBUF_X3          NangateOpenCellLibrary
+                                  1.330000       1      1.330000  
+alucontrol                       13.832000       1     13.832000  h
+controller                       86.716000       1     86.716000  h, n
+datapath_WIDTH32_REGBITS3      3892.111950       1   3892.111950  h, n
+-----------------------------------------------------------------------------
+Total 4 references                                   3993.989951
+1
+dc_shell> 
 Memory usage for this session 148 Mbytes.
 Memory usage for this session including child processes 148 Mbytes.
 CPU usage for this session 3 seconds ( 0.00 hours ).
-Elapsed time for this session 227 seconds ( 0.06 hours ).
+Elapsed time for this session 204 seconds ( 0.06 hours ).
 
 Thank you...

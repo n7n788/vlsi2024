@@ -56,8 +56,8 @@ mmap new  -reuse -name {Example Map} -radix %x -contents {{%b=11???? -bgcolor or
 #
 # Waveform windows
 #
-if {[catch {window new WaveWindow -name "Waveform 1" -geometry 2562x1013+1684+100}] != ""} {
-    window geometry "Waveform 1" 2562x1013+1684+100
+if {[catch {window new WaveWindow -name "Waveform 1" -geometry 2562x978+1070+274}] != ""} {
+    window geometry "Waveform 1" 2562x978+1070+274
 }
 window target "Waveform 1" on
 waveform using {Waveform 1}
@@ -67,11 +67,23 @@ waveform set \
     -signalnames name \
     -signalwidth 205 \
     -units ps \
-    -valuewidth 83
+    -valuewidth 44
 waveform baseline set -time 0
 
+set id [waveform add -signals  {
+	{dump::top.dut.dp.pc[31:0]}
+	} ]
+set id [waveform add -signals  {
+	{dump::top.dut.cont.state[3:0]}
+	} ]
+set id [waveform add -signals  {
+	{dump::top.dut.dp.instr[31:0]}
+	} ]
+set id [waveform add -signals  {
+	dump::top.dut.clk
+	} ]
 
-waveform xview limits 0 2000ps
+waveform xview limits 0 256000ps
 
 #
 # Waveform Window Links

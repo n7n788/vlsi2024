@@ -16,7 +16,7 @@ par:
 sta:
 	dc_shell -f ${SCRIPT}/sta.tcl | tee sta.log
 dsim:
-	ncverilog +define+__POST_PR__ +access+r -v ${MODEL} sum32.v mips32.final.vnet | tee dsim.log
+	ncverilog +define+__POST_PR__ +access+r -v ${MODEL} test32.v mips32.final.vnet | tee dsim.log
 saif:
 	vcd2saif -input dump.vcd -output mips32.saif
 power:

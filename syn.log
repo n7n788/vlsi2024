@@ -30,19 +30,19 @@
                         https://solvnetplus.synopsys.com)
 Initializing...
 Initializing gui preferences from file  /home/vlsi0217/.synopsys_dc_gui/preferences.tcl
-Current time:       Thu Aug  1 06:10:47 2024
+Current time:       Thu Aug  1 06:49:27 2024
 Hostname:           katsuo
 CPU Model:          Intel(R) Xeon(R) E-2186G CPU @ 3.80GHz
-CPU Details:        Cores = 12 : Sockets = 1 : Cache Size = 12288 KB : Freq = 1.11 GHz
+CPU Details:        Cores = 12 : Sockets = 1 : Cache Size = 12288 KB : Freq = 4.55 GHz
 OS:                 Linux 5.4.0-176-generic
-RAM:                125 GB (Free  11 GB)
+RAM:                125 GB (Free   9 GB)
 Swap:                 7 GB (Free   7 GB)
 Work Filesystem:    / mounted to /dev/mapper/ubuntu--vg-ubuntu--lv
 Tmp Filesystem:     / mounted to /dev/mapper/ubuntu--vg-ubuntu--lv
 Work Disk:          904 GB (Free 455 GB)
 Tmp Disk:           904 GB (Free 455 GB)
 
-CPU Load: 1%, Ram Free: 11 GB, Swap Free: 7 GB, Work Disk Free: 455 GB, Tmp Disk Free: 455 GB
+CPU Load: 2%, Ram Free: 9 GB, Swap Free: 7 GB, Work Disk Free: 455 GB, Tmp Disk Free: 455 GB
 #
 # Your design
 #
@@ -256,7 +256,7 @@ set_output_delay 0.1 -clock clk [all_outputs]
 # Design synthesis
 #
 compile -map_effort high
-CPU Load: 1%, Ram Free: 11 GB, Swap Free: 7 GB, Work Disk Free: 455 GB, Tmp Disk Free: 455 GB
+CPU Load: 2%, Ram Free: 9 GB, Swap Free: 7 GB, Work Disk Free: 455 GB, Tmp Disk Free: 455 GB
 Information: Checking out the license 'DesignWare'. (SEC-104)
 Information: Evaluating DesignWare library utilization. (UISN-27)
 
@@ -328,15 +328,15 @@ Information: Updating design information... (UID-85)
     0:00:02    7802.0      0.00       0.0      38.8                          
     0:00:02    7802.0      0.00       0.0      38.8                          
     0:00:02    7802.0      0.00       0.0      38.8                          
-    0:00:03    4231.0      0.00       0.0       0.0                          
-    0:00:03    4211.8      0.00       0.0       0.0                          
-    0:00:03    4211.8      0.00       0.0       0.0                          
-    0:00:03    4211.8      0.00       0.0       0.0                          
-    0:00:03    4211.8      0.00       0.0       0.0                          
-    0:00:03    4211.8      0.00       0.0       0.0                          
-    0:00:03    4211.8      0.00       0.0       0.0                          
-    0:00:03    4211.8      0.00       0.0       0.0                          
-    0:00:03    4211.8      0.00       0.0       0.0                          
+    0:00:02    4231.0      0.00       0.0       0.0                          
+    0:00:02    4211.8      0.00       0.0       0.0                          
+    0:00:02    4211.8      0.00       0.0       0.0                          
+    0:00:02    4211.8      0.00       0.0       0.0                          
+    0:00:02    4211.8      0.00       0.0       0.0                          
+    0:00:02    4211.8      0.00       0.0       0.0                          
+    0:00:02    4211.8      0.00       0.0       0.0                          
+    0:00:02    4211.8      0.00       0.0       0.0                          
+    0:00:02    4211.8      0.00       0.0       0.0                          
 
 
 
@@ -347,11 +347,11 @@ Information: Updating design information... (UID-85)
    ELAPSED            WORST NEG   SETUP    DESIGN                            
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
   --------- --------- --------- --------- --------- -------------------------
-    0:00:03    4211.8      0.00       0.0       0.0                          
-    0:00:03    4211.8      0.00       0.0       0.0                          
-    0:00:03    4211.8      0.00       0.0       0.0                          
-    0:00:03    4211.8      0.00       0.0       0.0                          
-    0:00:03    4211.8      0.00       0.0       0.0                          
+    0:00:02    4211.8      0.00       0.0       0.0                          
+    0:00:02    4211.8      0.00       0.0       0.0                          
+    0:00:02    4211.8      0.00       0.0       0.0                          
+    0:00:02    4211.8      0.00       0.0       0.0                          
+    0:00:02    4211.8      0.00       0.0       0.0                          
 
 
   Beginning Area-Recovery Phase  (cleanup)
@@ -361,8 +361,8 @@ Information: Updating design information... (UID-85)
    ELAPSED            WORST NEG   SETUP    DESIGN                            
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
   --------- --------- --------- --------- --------- -------------------------
-    0:00:03    4211.8      0.00       0.0       0.0                          
-    0:00:03    4211.8      0.00       0.0       0.0                          
+    0:00:02    4211.8      0.00       0.0       0.0                          
+    0:00:02    4211.8      0.00       0.0       0.0                          
     0:00:03    4208.4      0.00       0.0       0.0                          
     0:00:03    4203.6      0.00       0.0       0.0                          
     0:00:03    4199.6      0.00       0.0       0.0                          
@@ -384,7 +384,7 @@ Note: Symbol # after min delay cost means estimated hold TNS across all active s
 
   Optimization Complete
   ---------------------
-CPU Load: 2%, Ram Free: 11 GB, Swap Free: 7 GB, Work Disk Free: 455 GB, Tmp Disk Free: 455 GB
+CPU Load: 2%, Ram Free: 9 GB, Swap Free: 7 GB, Work Disk Free: 455 GB, Tmp Disk Free: 455 GB
 Information: Total number of MV cells in the design.
 ----------------------------------------------------------------------------------------------------
  MV Cells                                           Total Number                                   
@@ -406,7 +406,7 @@ Unmapped MV Cells
 ----------------------------------------------------------------------------------------------------
 1
 compile -incremental_mapping -map_effort high
-CPU Load: 2%, Ram Free: 11 GB, Swap Free: 7 GB, Work Disk Free: 455 GB, Tmp Disk Free: 455 GB
+CPU Load: 2%, Ram Free: 9 GB, Swap Free: 7 GB, Work Disk Free: 455 GB, Tmp Disk Free: 455 GB
 ====================================================================================================
 | Flow Information                                                                                 |
 ----------------------------------------------------------------------------------------------------
@@ -455,9 +455,9 @@ Information: Updating design information... (UID-85)
    ELAPSED            WORST NEG   SETUP    DESIGN                            
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
   --------- --------- --------- --------- --------- -------------------------
-    0:00:01    4194.0      0.00       0.0       0.0                          
-    0:00:01    4194.0      0.00       0.0       0.0                          
-    0:00:01    4194.0      0.00       0.0       0.0                          
+    0:00:00    4194.0      0.00       0.0       0.0                          
+    0:00:00    4194.0      0.00       0.0       0.0                          
+    0:00:00    4194.0      0.00       0.0       0.0                          
 
 
 Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
@@ -465,7 +465,7 @@ Note: Symbol # after min delay cost means estimated hold TNS across all active s
 
   Optimization Complete
   ---------------------
-CPU Load: 2%, Ram Free: 11 GB, Swap Free: 7 GB, Work Disk Free: 455 GB, Tmp Disk Free: 455 GB
+CPU Load: 2%, Ram Free: 9 GB, Swap Free: 7 GB, Work Disk Free: 455 GB, Tmp Disk Free: 455 GB
 Information: Total number of MV cells in the design.
 ----------------------------------------------------------------------------------------------------
  MV Cells                                           Total Number                                   
@@ -501,8 +501,61 @@ write_sdc ${base_name}.sdc
 # quit
 Information: Term was not able to be set up using xterm-256color . Using "xterm" by default instead. (CLE-10)
 Warning: Cannot use command line editor for terminal type 'xterm-256color'.  (UI-74)
-dc_shell> Error: ambiguous command 'report_timin' matched 3 commands:
-	(report_timing, report_timing_derate, report_timing_requirements) (CMD-006)
+dc_shell> Information: Updating graph... (UID-83)
+ 
+****************************************
+Report : reference
+Design : mips32
+Version: V-2023.12
+Date   : Thu Aug  1 06:49:42 2024
+****************************************
+
+Attributes:
+    b - black box (unknown)
+   bo - allows boundary optimization
+    d - dont_touch
+   mo - map_only
+    h - hierarchical
+    n - noncombinational
+    r - removable
+    s - synthetic operator
+    u - contains unmapped logic
+
+Reference          Library       Unit Area   Count    Total Area   Attributes
+-----------------------------------------------------------------------------
+alucontrol                       14.630000       1     14.630000  h
+controller                       84.322000       1     84.322000  h, n
+datapath_WIDTH32_REGBITS3      4095.069946       1   4095.069946  h, n
+-----------------------------------------------------------------------------
+Total 3 references                                   4194.021946
+1
+dc_shell>  
+****************************************
+Report : reference
+Design : mips32
+Version: V-2023.12
+Date   : Thu Aug  1 06:50:06 2024
+****************************************
+
+Attributes:
+    b - black box (unknown)
+   bo - allows boundary optimization
+    d - dont_touch
+   mo - map_only
+    h - hierarchical
+    n - noncombinational
+    r - removable
+    s - synthetic operator
+    u - contains unmapped logic
+
+Reference          Library       Unit Area   Count    Total Area   Attributes
+-----------------------------------------------------------------------------
+alucontrol                       14.630000       1     14.630000  h
+controller                       84.322000       1     84.322000  h, n
+datapath_WIDTH32_REGBITS3      4095.069946       1   4095.069946  h, n
+-----------------------------------------------------------------------------
+Total 3 references                                   4194.021946
+1
 dc_shell> Information: Updating design information... (UID-85)
  
 ****************************************
@@ -512,7 +565,7 @@ Report : timing
         -max_paths 1
 Design : mips32
 Version: V-2023.12
-Date   : Thu Aug  1 06:23:34 2024
+Date   : Thu Aug  1 06:50:13 2024
 ****************************************
 
 Operating Conditions: typical   Library: NangateOpenCellLibrary
@@ -629,99 +682,4 @@ Wire Load Model Mode: top
 
 
 1
-dc_shell>  
-****************************************
-Report : reference
-Design : mips32
-Version: V-2023.12
-Date   : Thu Aug  1 06:24:27 2024
-****************************************
-
-Attributes:
-    b - black box (unknown)
-   bo - allows boundary optimization
-    d - dont_touch
-   mo - map_only
-    h - hierarchical
-    n - noncombinational
-    r - removable
-    s - synthetic operator
-    u - contains unmapped logic
-
-Reference          Library       Unit Area   Count    Total Area   Attributes
------------------------------------------------------------------------------
-alucontrol                       14.630000       1     14.630000  h
-controller                       84.322000       1     84.322000  h, n
-datapath_WIDTH32_REGBITS3      4095.069946       1   4095.069946  h, n
------------------------------------------------------------------------------
-Total 3 references                                   4194.021946
-1
-dc_shell> Loading db file '/home/cad/lib/NANGATE45/typical.db'
-Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
-Warning: Design has unannotated primary inputs. (PWR-414)
-Warning: Design has unannotated sequential cell outputs. (PWR-415)
- 
-****************************************
-Report : power
-        -analysis_effort low
-Design : mips32
-Version: V-2023.12
-Date   : Thu Aug  1 06:26:35 2024
-****************************************
-
-
-Library(s) Used:
-
-    NangateOpenCellLibrary (File: /home/cad/lib/NANGATE45/typical.db)
-
-
-Operating Conditions: typical   Library: NangateOpenCellLibrary
-Wire Load Model Mode: top
-
-Design        Wire Load Model            Library
-------------------------------------------------
-mips32                 5K_hvratio_1_1    NangateOpenCellLibrary
-
-
-Global Operating Voltage = 1.1  
-Power-specific unit information :
-    Voltage Units = 1V
-    Capacitance Units = 1.000000ff
-    Time Units = 1ns
-    Dynamic Power Units = 1uW    (derived from V,C,T units)
-    Leakage Power Units = 1nW
-
-
-Attributes
-----------
-i - Including register clock pin internal power
-
-
-  Cell Internal Power  = 277.8731 uW   (82%)
-  Net Switching Power  =  61.3042 uW   (18%)
-                         ---------
-Total Dynamic Power    = 339.1773 uW  (100%)
-
-Cell Leakage Power     =  88.8568 uW
-
-
-                 Internal         Switching           Leakage            Total
-Power Group      Power            Power               Power              Power   (   %    )  Attrs
---------------------------------------------------------------------------------------------------
-io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
-memory             0.0000            0.0000            0.0000            0.0000  (   0.00%)
-black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
-clock_network    227.8297            0.0000            0.0000          227.8297  (  53.23%)  i
-register          17.8377            7.4230        3.5347e+04           60.6076  (  14.16%)
-sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
-combinational     32.2057           53.8813        5.3510e+04          139.5968  (  32.61%)
---------------------------------------------------------------------------------------------------
-Total            277.8731 uW        61.3043 uW     8.8857e+04 nW       428.0341 uW
-1
 dc_shell> 
-Memory usage for this session 155 Mbytes.
-Memory usage for this session including child processes 155 Mbytes.
-CPU usage for this session 7 seconds ( 0.00 hours ).
-Elapsed time for this session 973 seconds ( 0.27 hours ).
-
-Thank you...

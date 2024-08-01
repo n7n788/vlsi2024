@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running dc_shell Version V-2023.12 for linux64 -- Nov 27, 2023
-#@ # Date:   Thu Aug  1 06:10:47 2024
+#@ # Date:   Thu Aug  1 07:14:25 2024
 #@ # Run by: vlsi0217@katsuo
 #@ 
 
@@ -8678,68 +8678,59 @@ source /home/cad/synopsys/syn/V-2023.12/admin/setup/.synopsys_dc.setup
 #@ 
 #@ # -- End source /home/cad/synopsys/syn/V-2023.12/admin/setup/.synopsys_dc.setup
 
-source -echo -verbose /home/vlsi0217/files_14/nangate45/syn.tcl
-#@ # -- Starting source /home/vlsi0217/files_14/nangate45/syn.tcl
+source -echo -verbose /home/vlsi0217/files_14/nangate45/power.tcl
+#@ # -- Starting source /home/vlsi0217/files_14/nangate45/power.tcl
 
 #@ #
 #@ # Your design
 #@ #
 #@ set base_name "mips32"
-#@ set rtl_file  "mips32.v"
-#@ set clock_name "clk"
-#@ set clock_period 10.0
+#@ set vnet_file "mips32.final.vnet"
+#@ set sdc_file  "mips32.sdc"
+#@ set sdf_file  "mips32.sdf"
+#@ set spef_file "mips32.spef"
+#@ set saif_file "mips32.saif"
+#@ set inst_name "top/dut"
 #@ 
 #@ #
 #@ # Libraries
 #@ #
 #@ set target_library "/home/cad/lib/NANGATE45/typical.db"
+#@ #set target_library "/home/cad/lib/NANGATE45/fast.db"
+#@ #set target_library "/home/cad/lib/NANGATE45/slow.db"
 #@ set synthetic_library "dw_foundation.sldb"
 #@ set link_library [concat "*" $target_library $synthetic_library]
 #@ set symbol_library "generic.sldb"
 #@ define_design_lib WORK -path ./WORK
 #@ 
 #@ #
-#@ # Read RTL file(s)
+#@ # Read post-layout netlist
 #@ #
-#@ analyze -format verilog $rtl_file
-#@ elaborate $base_name
+#@ read_file -format verilog $vnet_file
 #@ current_design $base_name
 #@ link
-#@ uniquify
 #@ 
 #@ #
-#@ # Timing
+#@ # Delay and RC information
 #@ #
-#@ create_clock -name $clock_name -period $clock_period [find port $clock_name]
-#@ set_clock_uncertainty 0.02 [get_clocks $clock_name]
-#@ set_input_delay 0.1 -clock clk [remove_from_collection [all_inputs] {clk reset}]
-#@ set_output_delay 0.1 -clock clk [all_outputs]
+#@ read_sdc $sdc_file
+#@ read_sdf $sdf_file
+#@ read_parasitics $spef_file
 #@ 
 #@ #
-#@ # Clock gating
+#@ # Read switching activity information
 #@ #
-#@ #set_clock_gating_style -sequential latch
-#@ #insert_clock_gating
-#@ 
-#@ #
-#@ # Design synthesis
-#@ #
-#@ compile -map_effort high
-#@ compile -incremental_mapping -map_effort high
-#@ 
-#@ #
-#@ # Output
-#@ #
-#@ write -format verilog -hierarchy -output ${base_name}.vnet
-#@ write_sdc ${base_name}.sdc
+#@ reset_switching_activity
+#@ read_saif -input $saif_file -instance $inst_name -unit ns -scale 1
+#@ report_saif -hier
 #@ 
 #@ # report_timing
 #@ # report_reference -hier
+#@ # report_power -hier
 #@ # quit
-#@ # -- End source /home/vlsi0217/files_14/nangate45/syn.tcl
+#@ # -- End source /home/vlsi0217/files_14/nangate45/power.tcl
 
-report_timin
-report_timing
-report_reference
 report_power
+make dsim
+report_timing
 exit
