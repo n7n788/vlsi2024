@@ -1,1 +1,0 @@
-/home/vlsi0217/files_14/mips32.sdc
