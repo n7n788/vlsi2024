@@ -17,6 +17,7 @@ reg			reset;
 wire			memread, memwrite;
 wire [WIDTH-1:0]	adr, writedata;
 wire [WIDTH-1:0]	memdata;
+integer count;
 // 10nsec --> 100MHz
 parameter STEP = 10.0;
 // instantiate devices to be tested
@@ -29,6 +30,7 @@ initial begin
 `ifdef __POST_PR__
 	$sdf_annotate("mips32.sdf", top.dut, , "sdf.log", "MAXIMUM");
 `endif
+	count <= 0;
 	// dump waveform
 	$dumpfile("dump.vcd");
 	$dumpvars(0, top.dut);
@@ -48,11 +50,13 @@ always @(negedge clk) begin
 		// Modified by Matsutani
 		//if (adr == 5 & writedata == 7)
 		if (adr == 20 & writedata == 7)
-		//
-			$display("Simulation completely successful");
+			$display("Simulation completely successful: %d", count);
 		else
-			$display("Simulation failed");
-		$finish;
+			$display("Simulation failed %d", count);
+
+		count = count + 1;
+		if (count >= 2)
+			$finish;
 	end
 end
 endmodule

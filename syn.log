@@ -30,19 +30,19 @@
                         https://solvnetplus.synopsys.com)
 Initializing...
 Initializing gui preferences from file  /home/vlsi0217/.synopsys_dc_gui/preferences.tcl
-Current time:       Thu Jul  4 04:52:30 2024
+Current time:       Thu Aug  1 06:10:47 2024
 Hostname:           katsuo
 CPU Model:          Intel(R) Xeon(R) E-2186G CPU @ 3.80GHz
-CPU Details:        Cores = 12 : Sockets = 1 : Cache Size = 12288 KB : Freq = 4.10 GHz
+CPU Details:        Cores = 12 : Sockets = 1 : Cache Size = 12288 KB : Freq = 1.11 GHz
 OS:                 Linux 5.4.0-176-generic
-RAM:                125 GB (Free  43 GB)
+RAM:                125 GB (Free  11 GB)
 Swap:                 7 GB (Free   7 GB)
 Work Filesystem:    / mounted to /dev/mapper/ubuntu--vg-ubuntu--lv
 Tmp Filesystem:     / mounted to /dev/mapper/ubuntu--vg-ubuntu--lv
-Work Disk:          491 GB (Free 299 GB)
-Tmp Disk:           491 GB (Free 299 GB)
+Work Disk:          904 GB (Free 455 GB)
+Tmp Disk:           904 GB (Free 455 GB)
 
-CPU Load: 35%, Ram Free: 43 GB, Swap Free: 7 GB, Work Disk Free: 299 GB, Tmp Disk Free: 299 GB
+CPU Load: 1%, Ram Free: 11 GB, Swap Free: 7 GB, Work Disk Free: 455 GB, Tmp Disk Free: 455 GB
 #
 # Your design
 #
@@ -256,7 +256,7 @@ set_output_delay 0.1 -clock clk [all_outputs]
 # Design synthesis
 #
 compile -map_effort high
-CPU Load: 35%, Ram Free: 43 GB, Swap Free: 7 GB, Work Disk Free: 299 GB, Tmp Disk Free: 299 GB
+CPU Load: 1%, Ram Free: 11 GB, Swap Free: 7 GB, Work Disk Free: 455 GB, Tmp Disk Free: 455 GB
 Information: Checking out the license 'DesignWare'. (SEC-104)
 Information: Evaluating DesignWare library utilization. (UISN-27)
 
@@ -323,20 +323,20 @@ Information: Updating design information... (UID-85)
    ELAPSED            WORST NEG   SETUP    DESIGN                            
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
   --------- --------- --------- --------- --------- -------------------------
-    0:00:03    7802.0      0.00       0.0      38.8                          
-    0:00:03    7802.0      0.00       0.0      38.8                          
-    0:00:03    7802.0      0.00       0.0      38.8                          
-    0:00:04    7802.0      0.00       0.0      38.8                          
-    0:00:04    7802.0      0.00       0.0      38.8                          
-    0:00:05    4231.0      0.00       0.0       0.0                          
-    0:00:05    4211.8      0.00       0.0       0.0                          
-    0:00:05    4211.8      0.00       0.0       0.0                          
-    0:00:05    4211.8      0.00       0.0       0.0                          
-    0:00:05    4211.8      0.00       0.0       0.0                          
-    0:00:05    4211.8      0.00       0.0       0.0                          
-    0:00:05    4211.8      0.00       0.0       0.0                          
-    0:00:05    4211.8      0.00       0.0       0.0                          
-    0:00:05    4211.8      0.00       0.0       0.0                          
+    0:00:02    7802.0      0.00       0.0      38.8                          
+    0:00:02    7802.0      0.00       0.0      38.8                          
+    0:00:02    7802.0      0.00       0.0      38.8                          
+    0:00:02    7802.0      0.00       0.0      38.8                          
+    0:00:02    7802.0      0.00       0.0      38.8                          
+    0:00:03    4231.0      0.00       0.0       0.0                          
+    0:00:03    4211.8      0.00       0.0       0.0                          
+    0:00:03    4211.8      0.00       0.0       0.0                          
+    0:00:03    4211.8      0.00       0.0       0.0                          
+    0:00:03    4211.8      0.00       0.0       0.0                          
+    0:00:03    4211.8      0.00       0.0       0.0                          
+    0:00:03    4211.8      0.00       0.0       0.0                          
+    0:00:03    4211.8      0.00       0.0       0.0                          
+    0:00:03    4211.8      0.00       0.0       0.0                          
 
 
 
@@ -347,11 +347,11 @@ Information: Updating design information... (UID-85)
    ELAPSED            WORST NEG   SETUP    DESIGN                            
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
   --------- --------- --------- --------- --------- -------------------------
-    0:00:05    4211.8      0.00       0.0       0.0                          
-    0:00:05    4211.8      0.00       0.0       0.0                          
-    0:00:05    4211.8      0.00       0.0       0.0                          
-    0:00:05    4211.8      0.00       0.0       0.0                          
-    0:00:05    4211.8      0.00       0.0       0.0                          
+    0:00:03    4211.8      0.00       0.0       0.0                          
+    0:00:03    4211.8      0.00       0.0       0.0                          
+    0:00:03    4211.8      0.00       0.0       0.0                          
+    0:00:03    4211.8      0.00       0.0       0.0                          
+    0:00:03    4211.8      0.00       0.0       0.0                          
 
 
   Beginning Area-Recovery Phase  (cleanup)
@@ -361,22 +361,22 @@ Information: Updating design information... (UID-85)
    ELAPSED            WORST NEG   SETUP    DESIGN                            
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
   --------- --------- --------- --------- --------- -------------------------
-    0:00:05    4211.8      0.00       0.0       0.0                          
-    0:00:05    4211.8      0.00       0.0       0.0                          
-    0:00:05    4208.4      0.00       0.0       0.0                          
-    0:00:05    4203.6      0.00       0.0       0.0                          
-    0:00:05    4199.6      0.00       0.0       0.0                          
-    0:00:05    4197.2      0.00       0.0       0.0                          
-    0:00:05    4195.6      0.00       0.0       0.0                          
-    0:00:05    4195.6      0.00       0.0       0.0                          
-    0:00:05    4195.6      0.00       0.0       0.0                          
-    0:00:05    4194.0      0.00       0.0       0.0                          
-    0:00:05    4194.0      0.00       0.0       0.0                          
-    0:00:05    4194.0      0.00       0.0       0.0                          
-    0:00:05    4194.0      0.00       0.0       0.0                          
-    0:00:05    4194.0      0.00       0.0       0.0                          
-    0:00:05    4194.0      0.00       0.0       0.0                          
-    0:00:06    4194.0      0.00       0.0       0.0                          
+    0:00:03    4211.8      0.00       0.0       0.0                          
+    0:00:03    4211.8      0.00       0.0       0.0                          
+    0:00:03    4208.4      0.00       0.0       0.0                          
+    0:00:03    4203.6      0.00       0.0       0.0                          
+    0:00:03    4199.6      0.00       0.0       0.0                          
+    0:00:03    4197.2      0.00       0.0       0.0                          
+    0:00:03    4195.6      0.00       0.0       0.0                          
+    0:00:03    4195.6      0.00       0.0       0.0                          
+    0:00:03    4195.6      0.00       0.0       0.0                          
+    0:00:03    4194.0      0.00       0.0       0.0                          
+    0:00:03    4194.0      0.00       0.0       0.0                          
+    0:00:03    4194.0      0.00       0.0       0.0                          
+    0:00:03    4194.0      0.00       0.0       0.0                          
+    0:00:03    4194.0      0.00       0.0       0.0                          
+    0:00:03    4194.0      0.00       0.0       0.0                          
+    0:00:03    4194.0      0.00       0.0       0.0                          
 
 
 Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
@@ -384,7 +384,7 @@ Note: Symbol # after min delay cost means estimated hold TNS across all active s
 
   Optimization Complete
   ---------------------
-CPU Load: 39%, Ram Free: 42 GB, Swap Free: 7 GB, Work Disk Free: 299 GB, Tmp Disk Free: 299 GB
+CPU Load: 2%, Ram Free: 11 GB, Swap Free: 7 GB, Work Disk Free: 455 GB, Tmp Disk Free: 455 GB
 Information: Total number of MV cells in the design.
 ----------------------------------------------------------------------------------------------------
  MV Cells                                           Total Number                                   
@@ -406,7 +406,7 @@ Unmapped MV Cells
 ----------------------------------------------------------------------------------------------------
 1
 compile -incremental_mapping -map_effort high
-CPU Load: 39%, Ram Free: 42 GB, Swap Free: 7 GB, Work Disk Free: 299 GB, Tmp Disk Free: 299 GB
+CPU Load: 2%, Ram Free: 11 GB, Swap Free: 7 GB, Work Disk Free: 455 GB, Tmp Disk Free: 455 GB
 ====================================================================================================
 | Flow Information                                                                                 |
 ----------------------------------------------------------------------------------------------------
@@ -465,7 +465,7 @@ Note: Symbol # after min delay cost means estimated hold TNS across all active s
 
   Optimization Complete
   ---------------------
-CPU Load: 39%, Ram Free: 42 GB, Swap Free: 7 GB, Work Disk Free: 299 GB, Tmp Disk Free: 299 GB
+CPU Load: 2%, Ram Free: 11 GB, Swap Free: 7 GB, Work Disk Free: 455 GB, Tmp Disk Free: 455 GB
 Information: Total number of MV cells in the design.
 ----------------------------------------------------------------------------------------------------
  MV Cells                                           Total Number                                   
@@ -501,10 +501,227 @@ write_sdc ${base_name}.sdc
 # quit
 Information: Term was not able to be set up using xterm-256color . Using "xterm" by default instead. (CLE-10)
 Warning: Cannot use command line editor for terminal type 'xterm-256color'.  (UI-74)
+dc_shell> Error: ambiguous command 'report_timin' matched 3 commands:
+	(report_timing, report_timing_derate, report_timing_requirements) (CMD-006)
+dc_shell> Information: Updating design information... (UID-85)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : mips32
+Version: V-2023.12
+Date   : Thu Aug  1 06:23:34 2024
+****************************************
+
+Operating Conditions: typical   Library: NangateOpenCellLibrary
+Wire Load Model Mode: top
+
+  Startpoint: cont/state_reg[3]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: dp/pcreg/q_reg[21]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  mips32             5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cont/state_reg[3]/CK (DFF_X1)                           0.00       0.00 r
+  cont/state_reg[3]/QN (DFF_X1)                           0.08       0.08 f
+  cont/U71/ZN (NAND2_X1)                                  0.06       0.15 r
+  cont/U21/ZN (NOR3_X1)                                   0.03       0.18 f
+  cont/U20/Z (BUF_X1)                                     0.04       0.22 f
+  cont/U16/ZN (NOR4_X1)                                   0.15       0.38 r
+  cont/U64/ZN (NAND2_X1)                                  0.05       0.43 f
+  cont/alusrcb[0] (controller)                            0.00       0.43 f
+  dp/alusrcb[0] (datapath_WIDTH32_REGBITS3)               0.00       0.43 f
+  dp/src2mux/s[0] (mux4_WIDTH32_1)                        0.00       0.43 f
+  dp/src2mux/U5/ZN (INV_X1)                               0.05       0.48 r
+  dp/src2mux/U18/ZN (AND2_X1)                             0.04       0.52 r
+  dp/src2mux/U1/Z (BUF_X1)                                0.04       0.56 r
+  dp/src2mux/U6/Z (BUF_X1)                                0.10       0.66 r
+  dp/src2mux/U23/ZN (AOI22_X1)                            0.06       0.72 f
+  dp/src2mux/U101/ZN (NAND2_X1)                           0.04       0.76 r
+  dp/src2mux/y[0] (mux4_WIDTH32_1)                        0.00       0.76 r
+  dp/alunit/b[0] (alu_WIDTH32)                            0.00       0.76 r
+  dp/alunit/U167/Z (XOR2_X1)                              0.04       0.81 f
+  dp/alunit/add_1_root_add_292_2/B[0] (alu_WIDTH32_DW01_add_0)
+                                                          0.00       0.81 f
+  dp/alunit/add_1_root_add_292_2/U1_0/CO (FA_X1)          0.11       0.92 f
+  dp/alunit/add_1_root_add_292_2/U1_1/CO (FA_X1)          0.09       1.01 f
+  dp/alunit/add_1_root_add_292_2/U1_2/CO (FA_X1)          0.09       1.10 f
+  dp/alunit/add_1_root_add_292_2/U1_3/CO (FA_X1)          0.09       1.20 f
+  dp/alunit/add_1_root_add_292_2/U1_4/CO (FA_X1)          0.09       1.29 f
+  dp/alunit/add_1_root_add_292_2/U1_5/CO (FA_X1)          0.09       1.38 f
+  dp/alunit/add_1_root_add_292_2/U1_6/CO (FA_X1)          0.09       1.48 f
+  dp/alunit/add_1_root_add_292_2/U1_7/CO (FA_X1)          0.09       1.57 f
+  dp/alunit/add_1_root_add_292_2/U1_8/CO (FA_X1)          0.09       1.66 f
+  dp/alunit/add_1_root_add_292_2/U1_9/CO (FA_X1)          0.09       1.75 f
+  dp/alunit/add_1_root_add_292_2/U1_10/CO (FA_X1)         0.09       1.85 f
+  dp/alunit/add_1_root_add_292_2/U1_11/CO (FA_X1)         0.09       1.94 f
+  dp/alunit/add_1_root_add_292_2/U1_12/CO (FA_X1)         0.09       2.03 f
+  dp/alunit/add_1_root_add_292_2/U1_13/CO (FA_X1)         0.09       2.13 f
+  dp/alunit/add_1_root_add_292_2/U1_14/CO (FA_X1)         0.09       2.22 f
+  dp/alunit/add_1_root_add_292_2/U1_15/CO (FA_X1)         0.09       2.31 f
+  dp/alunit/add_1_root_add_292_2/U1_16/CO (FA_X1)         0.09       2.41 f
+  dp/alunit/add_1_root_add_292_2/U1_17/CO (FA_X1)         0.09       2.50 f
+  dp/alunit/add_1_root_add_292_2/U1_18/CO (FA_X1)         0.09       2.59 f
+  dp/alunit/add_1_root_add_292_2/U1_19/CO (FA_X1)         0.09       2.69 f
+  dp/alunit/add_1_root_add_292_2/U1_20/CO (FA_X1)         0.09       2.78 f
+  dp/alunit/add_1_root_add_292_2/U1_21/CO (FA_X1)         0.09       2.87 f
+  dp/alunit/add_1_root_add_292_2/U1_22/CO (FA_X1)         0.09       2.96 f
+  dp/alunit/add_1_root_add_292_2/U1_23/CO (FA_X1)         0.09       3.06 f
+  dp/alunit/add_1_root_add_292_2/U1_24/CO (FA_X1)         0.09       3.15 f
+  dp/alunit/add_1_root_add_292_2/U1_25/CO (FA_X1)         0.09       3.24 f
+  dp/alunit/add_1_root_add_292_2/U1_26/CO (FA_X1)         0.09       3.34 f
+  dp/alunit/add_1_root_add_292_2/U1_27/CO (FA_X1)         0.09       3.43 f
+  dp/alunit/add_1_root_add_292_2/U1_28/CO (FA_X1)         0.09       3.52 f
+  dp/alunit/add_1_root_add_292_2/U1_29/CO (FA_X1)         0.09       3.62 f
+  dp/alunit/add_1_root_add_292_2/U1_30/CO (FA_X1)         0.09       3.71 f
+  dp/alunit/add_1_root_add_292_2/U1_31/S (FA_X1)          0.11       3.82 f
+  dp/alunit/add_1_root_add_292_2/SUM[31] (alu_WIDTH32_DW01_add_0)
+                                                          0.00       3.82 f
+  dp/alunit/U15/ZN (AOI222_X1)                            0.08       3.90 r
+  dp/alunit/U14/ZN (INV_X1)                               0.04       3.94 f
+  dp/alunit/result[31] (alu_WIDTH32)                      0.00       3.94 f
+  dp/zd/a[31] (zerodetect_WIDTH32)                        0.00       3.94 f
+  dp/zd/U1/ZN (NOR4_X1)                                   0.11       4.05 r
+  dp/zd/U11/ZN (NAND4_X1)                                 0.05       4.10 f
+  dp/zd/U9/ZN (NOR2_X1)                                   0.04       4.14 r
+  dp/zd/y (zerodetect_WIDTH32)                            0.00       4.14 r
+  dp/zero (datapath_WIDTH32_REGBITS3)                     0.00       4.14 r
+  cont/zero (controller)                                  0.00       4.14 r
+  cont/U6/ZN (AOI21_X1)                                   0.03       4.17 f
+  cont/U61/ZN (NAND2_X1)                                  0.04       4.21 r
+  cont/pcen (controller)                                  0.00       4.21 r
+  dp/pcen (datapath_WIDTH32_REGBITS3)                     0.00       4.21 r
+  dp/pcreg/en (flopenr_WIDTH32)                           0.00       4.21 r
+  dp/pcreg/U28/ZN (INV_X1)                                0.02       4.23 f
+  dp/pcreg/U27/ZN (NOR2_X1)                               0.03       4.27 r
+  dp/pcreg/U3/Z (BUF_X1)                                  0.04       4.31 r
+  dp/pcreg/U5/Z (BUF_X1)                                  0.11       4.41 r
+  dp/pcreg/U29/ZN (NOR2_X1)                               0.04       4.45 f
+  dp/pcreg/U4/Z (BUF_X1)                                  0.04       4.49 f
+  dp/pcreg/U8/Z (BUF_X1)                                  0.07       4.57 f
+  dp/pcreg/U55/ZN (AOI22_X1)                              0.08       4.65 r
+  dp/pcreg/U54/ZN (INV_X1)                                0.02       4.67 f
+  dp/pcreg/q_reg[21]/D (DFF_X1)                           0.01       4.68 f
+  data arrival time                                                  4.68
+
+  clock clk (rise edge)                                  10.00      10.00
+  clock network delay (ideal)                             0.00      10.00
+  clock uncertainty                                      -0.02       9.98
+  dp/pcreg/q_reg[21]/CK (DFF_X1)                          0.00       9.98 r
+  library setup time                                     -0.04       9.94
+  data required time                                                 9.94
+  --------------------------------------------------------------------------
+  data required time                                                 9.94
+  data arrival time                                                 -4.68
+  --------------------------------------------------------------------------
+  slack (MET)                                                        5.26
+
+
+1
+dc_shell>  
+****************************************
+Report : reference
+Design : mips32
+Version: V-2023.12
+Date   : Thu Aug  1 06:24:27 2024
+****************************************
+
+Attributes:
+    b - black box (unknown)
+   bo - allows boundary optimization
+    d - dont_touch
+   mo - map_only
+    h - hierarchical
+    n - noncombinational
+    r - removable
+    s - synthetic operator
+    u - contains unmapped logic
+
+Reference          Library       Unit Area   Count    Total Area   Attributes
+-----------------------------------------------------------------------------
+alucontrol                       14.630000       1     14.630000  h
+controller                       84.322000       1     84.322000  h, n
+datapath_WIDTH32_REGBITS3      4095.069946       1   4095.069946  h, n
+-----------------------------------------------------------------------------
+Total 3 references                                   4194.021946
+1
+dc_shell> Loading db file '/home/cad/lib/NANGATE45/typical.db'
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+Warning: Design has unannotated primary inputs. (PWR-414)
+Warning: Design has unannotated sequential cell outputs. (PWR-415)
+ 
+****************************************
+Report : power
+        -analysis_effort low
+Design : mips32
+Version: V-2023.12
+Date   : Thu Aug  1 06:26:35 2024
+****************************************
+
+
+Library(s) Used:
+
+    NangateOpenCellLibrary (File: /home/cad/lib/NANGATE45/typical.db)
+
+
+Operating Conditions: typical   Library: NangateOpenCellLibrary
+Wire Load Model Mode: top
+
+Design        Wire Load Model            Library
+------------------------------------------------
+mips32                 5K_hvratio_1_1    NangateOpenCellLibrary
+
+
+Global Operating Voltage = 1.1  
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000ff
+    Time Units = 1ns
+    Dynamic Power Units = 1uW    (derived from V,C,T units)
+    Leakage Power Units = 1nW
+
+
+Attributes
+----------
+i - Including register clock pin internal power
+
+
+  Cell Internal Power  = 277.8731 uW   (82%)
+  Net Switching Power  =  61.3042 uW   (18%)
+                         ---------
+Total Dynamic Power    = 339.1773 uW  (100%)
+
+Cell Leakage Power     =  88.8568 uW
+
+
+                 Internal         Switching           Leakage            Total
+Power Group      Power            Power               Power              Power   (   %    )  Attrs
+--------------------------------------------------------------------------------------------------
+io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+memory             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
+clock_network    227.8297            0.0000            0.0000          227.8297  (  53.23%)  i
+register          17.8377            7.4230        3.5347e+04           60.6076  (  14.16%)
+sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
+combinational     32.2057           53.8813        5.3510e+04          139.5968  (  32.61%)
+--------------------------------------------------------------------------------------------------
+Total            277.8731 uW        61.3043 uW     8.8857e+04 nW       428.0341 uW
+1
 dc_shell> 
 Memory usage for this session 155 Mbytes.
 Memory usage for this session including child processes 155 Mbytes.
-CPU usage for this session 10 seconds ( 0.00 hours ).
-Elapsed time for this session 75 seconds ( 0.02 hours ).
+CPU usage for this session 7 seconds ( 0.00 hours ).
+Elapsed time for this session 973 seconds ( 0.27 hours ).
 
 Thank you...

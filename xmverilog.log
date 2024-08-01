@@ -1,5 +1,5 @@
 xmverilog: 22.09-s007: (c) Copyright 1995-2023 Cadence Design Systems, Inc.
-TOOL:	xmverilog	22.09-s007: Started on Jul 18, 2024 at 09:37:08 UTC
+TOOL:	xmverilog	22.09-s007: Started on Aug 01, 2024 at 06:48:15 UTC
 ncverilog
 	+access+r
 	test32.v
@@ -9,8 +9,10 @@ Loading snapshot worklib.top:v .................... Done
 xcelium> source /home/cad/cadence/XCELIUM2209/tools/xcelium/files/xmsimrc
 xcelium> run
 Data [         7] is stored in Address [        20]
-Simulation completely successful
-Simulation complete via $finish(1) at time 570 NS + 1
-./test32.v:55 		$finish;
+Simulation completely successful:           0
+Data [         7] is stored in Address [        20]
+Simulation completely successful:           1
+Simulation complete via $finish(1) at time 1130 NS + 1
+./test32.v:59 			$finish;
 xcelium> exit
-TOOL:	xmverilog	22.09-s007: Exiting on Jul 18, 2024 at 09:37:12 UTC  (total: 00:00:04)
+TOOL:	xmverilog	22.09-s007: Exiting on Aug 01, 2024 at 06:48:17 UTC  (total: 00:00:02)
