@@ -26,7 +26,7 @@ initial begin
 `ifdef __POST_PR__
 	$sdf_annotate("mips32.sdf", top0 , "sdf.log", "MAXIMUM");
 `endif
-	$readmemh("test32.dat", top0.devices0.sram0.mem, 0, 18);
+	$readmemh("test32.dat", top0.devices0.sram0.mem, 0, 19);
 	// dump waveform
 	$dumpfile("dump.vcd");
 	$dumpvars(0, top0);
@@ -41,16 +41,28 @@ end
 always #(STEP / 2)
 	clk <= ~clk;
 always @(negedge clk) begin
-	if (top0.dut0.memwrite) begin
+	if (top0.dut0.memwrite & top0.dut0.bgrt_ == `Enable_) begin
 		$display("Data [%d] is stored in Address [%d]", 
-			top0.dut0.adr, top0.dut0.writedata);
+			top0.dut0.writedata, top0.dut0.adr);
 		// Modified by Matsutani
 		//if (adr == 5 & writedata == 7)
 		if (top0.dut0.adr == 20 & top0.dut0.writedata == 7)
 		//
-			$display("Simulation completely successful");
+			$display("Simulation completely successful: dut0");
 		else
-			$display("Simulation failed");
+			$display("Simulation failed: dut0");
+		// $finish;
+	end
+	if (top0.dut1.memwrite & top0.dut0.bgrt_ == `Enable_) begin
+		$display("Data [%d] is stored in Address [%d]", 
+			top0.dut1.writedata, top0.dut1.adr);
+		// Modified by Matsutani
+		//if (adr == 5 & writedata == 7)
+		if (top0.dut1.adr == 20 & top0.dut1.writedata == 7)
+		//
+			$display("Simulation completely successful: dut1");
+		else
+			$display("Simulation failed: dut1");
 		$finish;
 	end
 end

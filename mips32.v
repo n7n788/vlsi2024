@@ -21,31 +21,33 @@ module mips32 (
 	output 			breq_
 );
 wire [31:0]	instr;
-wire		zero, alusrca, memtoreg, iord, pcen, regwrite, regdst;
-wire [1:0]	aluop, pcsource, alusrcb;
+wire		zero, alusrca, memtoreg, pcen, regwrite, regdst, aluen, resorkeep;
+wire [1:0]	aluop, pcsource, alusrcb, iord;
 wire [3:0]	irwrite;
 wire [2:0]	alucont;
 controller cont(clk, reset_, instr[31:26], zero, bgrt_, memread, memwrite,
 			alusrca, memtoreg, iord, pcen, regwrite, regdst,
-			pcsource, alusrcb, aluop, irwrite, breq_);
+			pcsource, alusrcb, aluop, irwrite, breq_, aluen, resorkeep);
 alucontrol ac(aluop, instr[5:0], alucont);
 datapath dp(clk, reset_, memdata, alusrca, memtoreg,
 			iord, pcen, regwrite, regdst, pcsource, alusrcb,
-			irwrite, alucont, zero, instr, adr, writedata);
+			irwrite, alucont, aluen, resorkeep, zero, instr, adr, writedata);
 endmodule
 
 /* controller */
 module controller (
-	input			clk, reset_,
-	input [5:0]		op,
-	input			zero,
-	input			bgrt_,
-	output reg		memread, memwrite, alusrca, memtoreg, iord,
-	output			pcen,
-	output reg		regwrite, regdst,
+	input				clk, reset_,
+	input [5:0]			op,
+	input				zero,
+	input				bgrt_,
+	output reg			memread, memwrite, alusrca, memtoreg, 
+	output reg [1:0]	iord,
+	output				pcen,
+	output reg			regwrite, regdst,
 	output reg [1:0]	pcsource, alusrcb, aluop,
 	output reg [3:0]	irwrite,
-	output reg		breq_
+	output reg			breq_,
+	output reg			aluen, resorkeep
 );
 parameter FETCH1      = 4'b0001;
 parameter SAME_FETCH1 = 4'b0010;
@@ -87,15 +89,15 @@ always @(*) begin
 		//FETCH1:	nextstate <= FETCH2;
 		FETCH1:	begin
 			if (bgrt_ == `Enable_) nextstate <= DECODE;
-			else nextstate <= FETCH1;
+			else nextstate <= SAME_FETCH1;
 		end
 		//FETCH2:	nextstate <= FETCH3;
 		//FETCH3:	nextstate <= FETCH4;
 		//FETCH4:	nextstate <= DECODE;
-		// SAME_FETCH1: begin
-		// 	if (bgrt_ == `Enable_) nextstate <= DECODE;
-		// 	else nextstate <= SAME_FETCH1;
-		// end
+		SAME_FETCH1: begin
+			if (bgrt_ == `Enable_) nextstate <= DECODE;
+			else nextstate <= SAME_FETCH1;
+		end
 		DECODE:	case (op)
 			LB:	nextstate <= MEMADR;
 			SB:	nextstate <= MEMADR;
@@ -121,12 +123,20 @@ always @(*) begin
 		end
 		LBRD: begin
 			if (bgrt_ == `Enable_) nextstate <= LBWR;
-			else nextstate <= LBRD;
+			else nextstate <= SAME_LBRD;
+		end 
+		SAME_LBRD: begin
+			if (bgrt_ == `Enable_) nextstate <= LBWR;
+			else nextstate <= SAME_LBRD;
 		end 
 		LBWR:	nextstate <= FETCH1;
 		SBWR: begin
 			if (bgrt_ == `Enable_) nextstate <= FETCH1;
-			else nextstate <= SBWR;
+			else nextstate <= SAME_SBWR;
+		end
+		SAME_SBWR: begin
+			if (bgrt_ == `Enable_) nextstate <= FETCH1;
+			else nextstate <= SAME_SBWR;
 		end
 		RTYPEEX:nextstate <= RTYPEWR;
 		RTYPEWR:nextstate <= FETCH1;
@@ -146,8 +156,10 @@ always @(*) begin
 	memread <= 0; memwrite <= 0;
 	alusrca <= 0; alusrcb <= 2'b00; aluop <= 2'b00;
 	pcsource <= 2'b00;
-	iord <= 0; memtoreg <= 0;
+	iord <= 2'b00; memtoreg <= 0;
 	breq_ <= `Disable_;
+	aluen <=  0;
+	resorkeep <= 0;
 	case (state)
 		FETCH1: begin
 			memread <= 1;
@@ -155,13 +167,16 @@ always @(*) begin
 			alusrcb <= 2'b01;
 			pcwrite <= 1;
 			breq_ <= `Enable_;
+			aluen <=  1;
 		end
-		// SAME_FETCH1: begin
-		// 	memread <= 1;
-		// 	irwrite <= 4'b1000;
-		// 	alusrcb <= 2'b01;
-		// 	breq_ <= `Enable_;
-		// end
+		SAME_FETCH1: begin
+			memread <= 1;
+			irwrite <= 4'b1000;
+			alusrcb <= 2'b01;
+			iord <= 2'b10;
+			breq_ <= `Enable_;
+			aluen <=  1;
+		end
 		// FETCH3: begin
 		// 	memread <= 1;
 		// 	irwrite <= 4'b0010;
@@ -176,50 +191,73 @@ always @(*) begin
 		// end
 		DECODE: begin 
 			alusrcb <= 2'b11;
+			aluen <=  1;
 		end
 		MEMADR: begin
 			alusrca <= 1;
 			alusrcb <= 2'b10;
+			aluen <=  1;
 		end
 		LBRD: begin
 			memread <= 1;
-			iord    <= 1;
+			iord    <= 2'b01;
 			breq_ <= `Enable_;
+			aluen <=  1;
+		end
+		SAME_LBRD: begin
+			memread <= 1;
+			iord    <= 2'b01;
+			breq_ <= `Enable_;
+			resorkeep <= 1;
 		end
 		LBWR: begin
 			regwrite <= 1;
 			memtoreg <= 1;
+			aluen <=  1;
 		end
 		SBWR: begin
 			memwrite <= 1;
-			iord     <= 1;
+			iord     <= 2'b01;
 			breq_ <= `Enable_;
+			aluen <=  1;
+		end
+		SAME_SBWR: begin
+			memwrite <= 1;
+			iord     <= 2'b01;
+			breq_ <= `Enable_;
+			resorkeep <= 1;
 		end
 		RTYPEEX: begin
 			alusrca <= 1;
 			aluop   <= 2'b10;
+			aluen <=  1;
 		end
 		RTYPEWR: begin
 			regdst   <= 1;
 			regwrite <= 1;
+			aluen <=  1;
 		end
 		BEQEX: begin
 			alusrca     <= 1;
 			aluop       <= 2'b01;
 			pcwritecond <= 1;
 			pcsource    <= 2'b01;
+			aluen <=  1;
 		end
 		JEX: begin
 			pcwrite  <= 1;
 			pcsource <= 2'b10;
+			aluen <=  1;
 		end
 		ADDIEX: begin
 			alusrca <= 1;
 			alusrcb <= 2'b10;
+			aluen <=  1;
 		end
 		ADDIWR: begin
 			regdst   <= 0;
 			regwrite <= 1;
+			aluen <=  1;
 		end
 	endcase
 end
@@ -251,10 +289,13 @@ endmodule
 module datapath (
 	input			clk, reset_,
 	input [`DATA_WIDTH-1:0]	memdata,
-	input			alusrca, memtoreg, iord, pcen, regwrite, regdst,
+	input			alusrca, memtoreg, 
+	input [1:0]		iord, 
+	input			pcen, regwrite, regdst,
 	input [1:0]		pcsource, alusrcb,
 	input [3:0]		irwrite,
 	input [2:0]		alucont,
+	input			aluen, resorkeep,
 	output			zero,
 	output [31:0]		instr,
 	output [`BUS_ADDR_WIDTH-1:0]	adr,
@@ -271,7 +312,7 @@ parameter CONST_FOUR = 32'b100;
 //
 wire [`REGBITS-1:0] ra1, ra2, wa;
 wire [`DATA_WIDTH-1:0] pc, nextpc, md, rd1, rd2, wd, a, src1, src2, aluresult,
-			aluout, constx, prev_pc;
+			aluout, constx, pckeep, aluoutkeep, aluoutadr;
 // shift left constant field by 2
 // Modified by Matsutani
 //assign constx4 = {instr[DATA_WIDTH-3:0], 2'b00};
@@ -293,12 +334,15 @@ flopen #(32) ir(clk, irwrite[3], memdata[31:0], instr[31:0]);
 //
 // datapath
 flopenr #(`DATA_WIDTH) pcreg(clk, reset_, pcen, nextpc, pc);
+flopenr #(`DATA_WIDTH) pckeepreg(clk, reset_, pcen, pc, pckeep);
 flop #(`DATA_WIDTH) mdr(clk, memdata, md);
 flop #(`DATA_WIDTH) areg(clk, rd1, a);
 flop #(`DATA_WIDTH) wrd(clk, rd2, writedata);
-flop #(`DATA_WIDTH) res(clk, aluresult, aluout);
-mux2 #(`BUS_ADDR_WIDTH) adrmux(pc[9:0], aluout[9:0], iord, adr);
+flopen #(`DATA_WIDTH) res(clk, aluen, aluresult, aluout);
+flopen #(`DATA_WIDTH) reskeep(clk, aluen, aluout, aluoutkeep);
+mux4 #(`BUS_ADDR_WIDTH) adrmux(pc[9:0], aluoutadr[9:0], pckeep[9:0], CONST_ZERO[9:0], iord, adr);
 mux2 #(`DATA_WIDTH) src1mux(pc, a, alusrca, src1);
+mux2 #(`DATA_WIDTH) aluoutmux(aluout, aluoutkeep, resorkeep, aluoutadr);
 // Modified by Matsutani
 //mux4 #(WIDTH) src2mux(writedata, CONST_ONE, instr[WIDTH-1:0], constx4, 
 //			alusrcb, src2);
